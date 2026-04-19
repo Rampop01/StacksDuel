@@ -1,0 +1,16 @@
+;; SIP-009 NFT Trait for Stacks
+(define-trait nft-trait
+  (
+    ;; Last token ID, limited to uint range
+    (get-last-token-id () (response uint uint))
+
+    ;; URI for metadata
+    (get-token-uri (uint) (response (optional (string-ascii 256)) uint))
+
+    ;; Owner of a given token identifier
+    (get-owner (uint) (response (optional principal) uint))
+
+    ;; Transfer from one principal to another
+    (transfer (uint principal principal) (response bool uint))
+  )
+)

@@ -1,0 +1,31 @@
+[project]
+name = "stacks-duel-pro"
+authors = []
+description = "A high-interaction duel engine on Stacks"
+telemetry = false
+requirements = []
+
+[contracts.sip-009]
+path = "contracts/sip-009.clar"
+clarity_version = 2
+
+[contracts.duel-nft]
+path = "contracts/duel-nft.clar"
+clarity_version = 2
+depends_on = ["sip-009"]
+
+[contracts.duel-engine]
+path = "contracts/duel-engine.clar"
+clarity_version = 2
+depends_on = ["duel-nft"]
+
+[repl.analysis]
+passes = ["check_checker"]
+
+[repl.analysis.check_checker]
+strict = false
+trusted_sender = false
+redeclarations = false
+initial_costs = false
+costs_version = 2
+trust_annotations = false

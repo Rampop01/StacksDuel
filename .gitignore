@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Bot Scripts (PRIVATE)
+backend/scripts/
+bot-fleet.json
+.env
+
+# Build outputs
+dist/
+build/
+.next/
+
+# IDE files
+.vscode/
+.antigravity/
+.DS_Store
