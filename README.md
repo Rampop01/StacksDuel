@@ -1,6 +1,6 @@
-# StacksDuel PRO
+# StacksDuel
 
-**StacksDuel PRO** is a high-interaction, decentralized battleground built on the Stacks blockchain. It leverages Clarity smart contracts to create a low-friction, high-engagement environment for binary voting and on-chain status rewards.
+**StacksDuel** is a high-interaction, decentralized battleground built on the Stacks blockchain. It leverages Clarity smart contracts to create a low-friction, high-engagement environment for binary voting and on-chain status rewards.
 
 ## Vision
 To create a "reasonable" but addictive social utility on Stacks. Unlike traditional voting platforms, **StacksDuel** integrates a robust NFT reward system:
@@ -9,7 +9,7 @@ To create a "reasonable" but addictive social utility on Stacks. Unlike traditio
 
 ## Tech Stack
 - Smart Contracts: Clarity (SIP-009 Compatible)
-- Frontend: Premium Glassmorphism UI (Next.js 16, TypeScript, Stacks.js)
+- Frontend: Next.js 16, TypeScript, Stacks.js
 - Architecture: Separated Logic (Traits, NFT implementation, and Duel Engine)
 
 ## Repository Structure
