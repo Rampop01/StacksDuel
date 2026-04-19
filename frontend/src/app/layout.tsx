@@ -6,6 +6,9 @@ import "./globals.css";
 export const metadata: Metadata = {
   title: "StacksDuel | Decentralized Gaming Duels",
   description: "Challenge players, stake STX, and win rewards in decentralized glassmorphism-styled duels.",
+  other: {
+    "talentapp:project_verification": "48fa7a0da97de08321b637387d93fae1f1c7891a9f2c793512768b2436947b2c03759725e85778662b3dae7c637ea8df7cd4ac5b71891d1eb430f3fce7c14cf2"
+  }
 };
 
 export default function RootLayout({
