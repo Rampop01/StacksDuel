@@ -1,9 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800;900&family=JetBrains+Mono:wght@400;700&display=swap');
 @import "tailwindcss";
 
 :root {
-  --font-outfit: 'Outfit', sans-serif;
-  --font-jet: 'JetBrains Mono', monospace;
+  /* Fonts are now handled via next/font/google in layout.tsx */
   
   /* Theme Colors for v4 CSS variables */
   --color-primary: #22d3ee;
