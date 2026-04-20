@@ -10,10 +10,10 @@ export default function Navbar() {
   return (
     <nav className="glass fixed top-0 left-0 right-0 z-50 m-4 px-6 py-4 flex justify-between items-center">
       <div className="flex items-center gap-2">
-        <div className="p-2 bg-gradient-to-br from-purple-600 to-pink-600 rounded-lg">
-          <Swords className="text-white w-6 h-6" />
+        <div className="p-2 bg-primary/20 rounded-lg border border-primary/20">
+          <Swords className="text-primary w-6 h-6" />
         </div>
-        <span className="text-xl font-bold tracking-tight">Stacks<span className="neon-text">Duel</span></span>
+        <span className="text-xl font-bold tracking-tight">Stacks<span className="text-primary">Duel</span></span>
       </div>
 
       <div className="flex items-center gap-4">
