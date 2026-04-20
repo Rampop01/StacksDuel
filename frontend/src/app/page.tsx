@@ -2,7 +2,14 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sword, Users, TrendingUp, Trophy, Zap, Loader2, Sparkles, Activity } from 'lucide-react';
+import Sword from 'lucide-react/dist/esm/icons/sword';
+import Users from 'lucide-react/dist/esm/icons/users';
+import TrendingUp from 'lucide-react/dist/esm/icons/trending-up';
+import Trophy from 'lucide-react/dist/esm/icons/trophy';
+import Zap from 'lucide-react/dist/esm/icons/zap';
+import Loader2 from 'lucide-react/dist/esm/icons/loader-2';
+import Sparkles from 'lucide-react/dist/esm/icons/sparkles';
+import Activity from 'lucide-react/dist/esm/icons/activity';
 import Link from 'next/link';
 import DuelCard from '@/components/DuelCard';
 import { fetchLastDuelId, fetchDuelDetails } from '@/lib/stacks';

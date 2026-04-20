@@ -1,7 +1,10 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Users, Shield, Zap, Loader2 } from 'lucide-react';
+import Users from 'lucide-react/dist/esm/icons/users';
+import Shield from 'lucide-react/dist/esm/icons/shield';
+import Zap from 'lucide-react/dist/esm/icons/zap';
+import Loader2 from 'lucide-react/dist/esm/icons/loader-2';
 import { request } from '@stacks/connect';
 import { useStacks } from './StacksProvider';
 

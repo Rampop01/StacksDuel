@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Loader2, Activity, ArrowLeft } from 'lucide-react';
+import Loader2 from 'lucide-react/dist/esm/icons/loader-2';
+import Activity from 'lucide-react/dist/esm/icons/activity';
+import ArrowLeft from 'lucide-react/dist/esm/icons/arrow-left';
 import Link from 'next/link';
 import DuelCard from '@/components/DuelCard';
 import { fetchLastDuelId, fetchDuelDetails } from '@/lib/stacks';
