@@ -65,10 +65,12 @@ export default function Home() {
           </p>
 
           <div className="flex flex-wrap gap-4 justify-center">
-            <button className="btn-primary flex items-center gap-2">
-              <Sword size={20} />
-              CREATE NEW DUEL
-            </button>
+            <Link href="/create">
+              <button className="btn-primary flex items-center gap-2">
+                <Sword size={20} />
+                CREATE NEW DUEL
+              </button>
+            </Link>
             <Link href="/how-it-works">
               <button className="px-8 py-4 bg-white/5 border border-white/10 rounded-2xl font-black text-[11px] tracking-widest text-white hover:bg-white/10 transition-all">
                 HOW IT WORKS
