@@ -46,10 +46,8 @@ export default function BattlesPage() {
       <div className="max-w-7xl mx-auto space-y-12">
         
         <div className="flex flex-col space-y-6">
-          <Link href="/">
-            <button className="flex items-center gap-2 text-white/50 hover:text-primary transition-colors text-sm font-bold uppercase tracking-widest w-fit">
-              <ArrowLeft size={16} /> Back to Hub
-            </button>
+          <Link href="/" className="flex items-center gap-2 text-white/50 hover:text-primary transition-colors text-sm font-bold uppercase tracking-widest w-fit">
+            <ArrowLeft size={16} /> Back to Hub
           </Link>
           
           <div className="flex items-center gap-3">

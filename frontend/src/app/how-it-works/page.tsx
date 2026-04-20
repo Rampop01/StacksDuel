@@ -10,10 +10,8 @@ export default function HowItWorksPage() {
       <div className="max-w-4xl mx-auto space-y-12">
         
         <div className="flex flex-col space-y-6">
-          <Link href="/">
-            <button className="flex items-center gap-2 text-white/50 hover:text-primary transition-colors text-sm font-bold uppercase tracking-widest w-fit">
-              <ArrowLeft size={16} /> Back to Hub
-            </button>
+          <Link href="/" className="flex items-center gap-2 text-white/50 hover:text-primary transition-colors text-sm font-bold uppercase tracking-widest w-fit">
+            <ArrowLeft size={16} /> Back to Hub
           </Link>
           
           <h1 className="text-5xl md:text-6xl font-black tracking-tighter uppercase italic text-primary">
