@@ -1,11 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import ArrowLeft from 'lucide-react/dist/esm/icons/arrow-left';
-import Sword from 'lucide-react/dist/esm/icons/sword';
-import Coins from 'lucide-react/dist/esm/icons/coins';
-import ShieldCheck from 'lucide-react/dist/esm/icons/shield-check';
-import Trophy from 'lucide-react/dist/esm/icons/trophy';
+import { ArrowLeft, Sword, Coins, ShieldCheck, Trophy } from '@/components/Icons';
 import Link from 'next/link';
 
 export default function HowItWorksPage() {

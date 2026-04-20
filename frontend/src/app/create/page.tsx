@@ -2,11 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import ArrowLeft from 'lucide-react/dist/esm/icons/arrow-left';
-import Loader2 from 'lucide-react/dist/esm/icons/loader-2';
-import Sword from 'lucide-react/dist/esm/icons/sword';
-import Plus from 'lucide-react/dist/esm/icons/plus';
-import X from 'lucide-react/dist/esm/icons/x';
+import { ArrowLeft, Loader2, Sword, Plus, X } from '@/components/Icons';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { request } from '@stacks/connect';

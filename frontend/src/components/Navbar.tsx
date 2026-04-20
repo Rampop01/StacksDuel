@@ -2,10 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useStacks } from './StacksProvider';
-import Wallet from 'lucide-react/dist/esm/icons/wallet';
-import LogOut from 'lucide-react/dist/esm/icons/log-out';
-import Swords from 'lucide-react/dist/esm/icons/swords';
-import Activity from 'lucide-react/dist/esm/icons/activity';
+import { Wallet, LogOut, Swords, Activity } from '@/components/Icons';
 import { fetchLastDuelId } from '@/lib/stacks';
 
 export default function Navbar() {
