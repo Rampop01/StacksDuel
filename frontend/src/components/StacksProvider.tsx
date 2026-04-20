@@ -21,13 +21,14 @@ export function StacksProvider({ children }: { children: React.ReactNode }) {
     if (isConnected()) {
       setConnected(true);
       try {
-        const stored = getLocalStorage();
+        const stored: any = getLocalStorage();
         if (stored && stored.addresses) {
+          const stxAddrs = Array.isArray(stored.addresses) ? stored.addresses : (stored.addresses.stx || []);
           setUserData({
             profile: {
               stxAddress: {
-                mainnet: stored.addresses.find((a: any) => a.network === 'mainnet')?.address || '',
-                testnet: stored.addresses.find((a: any) => a.network === 'testnet')?.address || '',
+                mainnet: stxAddrs.find((a: any) => ['mainnet', 'mainnet', undefined].includes(a.network))?.address || stxAddrs[0]?.address || '',
+                testnet: stxAddrs.find((a: any) => a.network === 'testnet')?.address || '',
               }
             }
           });

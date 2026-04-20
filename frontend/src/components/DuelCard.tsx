@@ -35,8 +35,7 @@ export default function DuelCard({ duel }: DuelCardProps) {
     setVoting(true);
     try {
       await request('stx_callContract', {
-        contractAddress: CONTRACT_ADDRESS,
-        contractName: 'duel-engine',
+        contract: `${CONTRACT_ADDRESS}.duel-engine`,
         functionName: 'vote',
         functionArgs: [
           '0x01' + parseInt(duel.id).toString(16).padStart(32, '0'),
