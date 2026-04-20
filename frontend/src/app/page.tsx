@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sword, Users, TrendingUp, Trophy, Zap, Loader2, Sparkles } from 'lucide-react';
+import { Sword, Users, TrendingUp, Trophy, Zap, Loader2, Sparkles, Activity } from 'lucide-react';
 import DuelCard from '@/components/DuelCard';
 import { fetchLastDuelId, fetchDuelDetails } from '@/lib/stacks';
 
@@ -21,8 +21,7 @@ export default function Home() {
         return;
       }
 
-      // Fetch the last 8 duels
-      const startId = Math.max(1, liveId - 7);
+      const startId = Math.max(1, liveId - 8);
       const results = [];
       for (let i = liveId; i >= startId; i--) {
         const detail = await fetchDuelDetails(i);
@@ -35,101 +34,99 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="flex flex-col gap-16">
-      {/* Hero Section */}
-      <section className="text-center flex flex-col items-center">
-        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full glass border-cyan-500/20 text-cyan-400 text-xs font-bold mb-6 animate-pulse">
-          <Sparkles className="w-3 h-3" />
-          STX BUILDER REWARDS SEASON 1
-        </div>
-        <h1 className="hero-title">
-          Master the Chain,<br />
-          <span className="neon-text">Win the Duel.</span>
-        </h1>
-        <p className="subtitle mb-10">
-          The ultimate Stacks-based arena for competitive smart contract duels. 
-          Stake STX, challenge opponents, and rise to the top of the leaderboard.
-        </p>
-        <div className="flex gap-4">
-          <button className="btn-primary px-10 py-4 text-lg">
-            Create New Duel
-          </button>
-          <button className="glass px-10 py-4 text-lg hover:border-white/30 transition-all font-semibold">
-            How it Works
-          </button>
-        </div>
-      </section>
+    <main className="min-h-screen pt-32 pb-20 px-6">
+      <div className="max-w-7xl mx-auto space-y-24">
+        
+        {/* CENTERED HERO */}
+        <section className="flex flex-col items-center text-center py-16 space-y-8">
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-primary/20 text-primary text-[10px] font-black uppercase tracking-[0.3em]"
+          >
+            <Sparkles className="w-4 h-4" />
+            Built on Stacks — Secured by Bitcoin
+          </motion.div>
+          
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="text-6xl md:text-8xl font-black tracking-tighter leading-tight"
+          >
+            PICK A SIDE. <br/>
+            <span className="neon-text italic">WIN THE DUEL.</span>
+          </motion.h1>
 
-      {/* Duel Arena */}
-      <section className="flex flex-col gap-8">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary/10 rounded-lg text-primary animate-pulse">
-              <Sword size={24} />
+          <p className="text-lg text-white/50 max-w-2xl leading-relaxed font-medium">
+            StacksDuel is the decentralized prediction arena on Bitcoin L2. 
+            Create head-to-head matchups, cast your vote, earn NFT badges, 
+            and let the blockchain decide the winner.
+          </p>
+
+          <div className="flex flex-wrap gap-4 justify-center">
+            <button className="btn-primary flex items-center gap-2">
+              <Sword size={20} />
+              CREATE NEW DUEL
+            </button>
+            <button className="px-8 py-4 bg-white/5 border border-white/10 rounded-2xl font-black text-[11px] tracking-widest text-white hover:bg-white/10 transition-all">
+              HOW IT WORKS
+            </button>
+          </div>
+        </section>
+
+        {/* STATS STRIP */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="glass-card flex flex-col items-center text-center space-y-2">
+            <TrendingUp className="text-primary w-8 h-8 mb-2" />
+            <span className="text-4xl font-black tracking-tighter">{lastId}</span>
+            <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Real-Time Battles</span>
+          </div>
+          <div className="glass-card flex flex-col items-center text-center space-y-2">
+             <Zap className="text-purple-500 w-8 h-8 mb-2" />
+             <span className="text-4xl font-black tracking-tighter">{lastId * 10}+</span>
+             <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Verified Entries</span>
+          </div>
+          <div className="glass-card flex flex-col items-center text-center space-y-2">
+             <Trophy className="text-pink-500 w-8 h-8 mb-2" />
+             <span className="text-4xl font-black tracking-tighter">{Math.floor(lastId * 0.8) + 100}</span>
+             <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Active Rivals</span>
+          </div>
+        </div>
+
+        {/* BATTLEGROUND GRID */}
+        <section className="space-y-12">
+          <div className="flex flex-col items-center space-y-4">
+            <div className="flex items-center gap-3">
+               <Activity className="text-primary animate-pulse w-6 h-6" />
+               <h2 className="text-4xl font-black tracking-tighter uppercase italic">Battleground</h2>
             </div>
-            <h2 className="text-3xl font-bold font-heading tracking-tight">Active Battleground</h2>
+            <div className="h-px w-20 bg-primary/20" />
           </div>
-          <div className="flex items-center gap-2 px-4 py-2 rounded-full glass border-white/5 text-sm font-medium">
-            <span className="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
-            Live Actions
-          </div>
-        </div>
 
-        {loading ? (
-          <div className="flex flex-col items-center justify-center py-20 gap-4 glass rounded-3xl animate-fadeIn">
-            <Loader2 className="animate-spin text-primary" size={48} />
-            <p className="text-white/60 font-medium">Scanning Stacks Arena...</p>
-          </div>
-        ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <AnimatePresence mode="popLayout">
-              {duels.map((duel, index) => (
-                <motion.div
-                  key={duel.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.9 }}
-                  transition={{ delay: index * 0.1 }}
-                >
-                  <DuelCard duel={duel} />
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </div>
-        )}
-      </section>
+          {loading ? (
+            <div className="flex flex-col items-center justify-center py-40 glass rounded-[48px] border-white/5 w-full">
+              <Loader2 className="animate-spin text-primary" size={60} />
+              <p className="text-primary font-black uppercase tracking-widest text-xs mt-6 animate-pulse">Syncing Arena...</p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              <AnimatePresence mode="popLayout">
+                {duels.map((duel, index) => (
+                  <motion.div
+                    key={duel.id}
+                    initial={{ opacity: 0, scale: 0.9 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ delay: index * 0.1 }}
+                  >
+                    <DuelCard duel={duel} />
+                  </motion.div>
+                ))}
+              </AnimatePresence>
+            </div>
+          )}
+        </section>
 
-      {/* Stats Summary */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div className="glass-card flex items-center gap-4">
-          <div className="p-3 bg-cyan-500/10 rounded-xl">
-            <TrendingUp className="text-cyan-400 w-6 h-6" />
-          </div>
-          <div>
-            <div className="text-2xl font-bold">{lastId}</div>
-            <div className="text-xs text-muted uppercase tracking-wider">Total Battles</div>
-          </div>
-        </div>
-        <div className="glass-card flex items-center gap-4">
-          <div className="p-3 bg-purple-500/10 rounded-xl">
-            <Zap className="text-purple-400 w-6 h-6" />
-          </div>
-          <div>
-            <div className="text-2xl font-bold">{lastId * 1}0k+</div>
-            <div className="text-xs text-muted uppercase tracking-wider">Estimated Entries</div>
-          </div>
-        </div>
-        <div className="glass-card flex items-center gap-4">
-          <div className="p-3 bg-pink-500/10 rounded-xl">
-            <Trophy className="text-pink-400 w-6 h-6" />
-          </div>
-          <div>
-            <div className="text-2xl font-bold">{Math.floor(lastId * 0.8) + 100}</div>
-            <div className="text-xs text-muted uppercase tracking-wider">Active Rivals</div>
-          </div>
-        </div>
-      </section>
-
-    </div>
+      </div>
+    </main>
   );
 }

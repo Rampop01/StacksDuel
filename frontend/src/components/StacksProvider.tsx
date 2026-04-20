@@ -1,57 +1,75 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { AppConfig, UserSession, showConnect } from '@stacks/connect';
-import { STACKS_MAINNET, STACKS_TESTNET } from '@stacks/network';
+import { connect, disconnect, isConnected, getLocalStorage } from '@stacks/connect';
 
 interface StacksContextType {
-  userSession: UserSession;
   userData: any;
   authenticate: () => void;
   logout: () => void;
-  network: typeof STACKS_MAINNET;
+  connected: boolean;
 }
-
-const appConfig = new AppConfig(['store_write', 'publish_data']);
-const userSession = new UserSession({ appConfig });
 
 const StacksContext = createContext<StacksContextType | undefined>(undefined);
 
 export function StacksProvider({ children }: { children: React.ReactNode }) {
   const [userData, setUserData] = useState<any>(null);
-  const network = STACKS_MAINNET;
+  const [connected, setConnected] = useState(false);
 
   useEffect(() => {
-    if (userSession.isSignInPending()) {
-      userSession.handlePendingSignIn().then((data) => {
-        setUserData(data);
-      });
-    } else if (userSession.isUserSignedIn()) {
-      setUserData(userSession.loadUserData());
+    // Check if user is already connected from a previous session
+    if (isConnected()) {
+      setConnected(true);
+      try {
+        const stored = getLocalStorage();
+        if (stored && stored.addresses) {
+          setUserData({
+            profile: {
+              stxAddress: {
+                mainnet: stored.addresses.find((a: any) => a.network === 'mainnet')?.address || '',
+                testnet: stored.addresses.find((a: any) => a.network === 'testnet')?.address || '',
+              }
+            }
+          });
+        }
+      } catch (e) {
+        console.error('Error loading stored data:', e);
+      }
     }
   }, []);
 
-  const authenticate = () => {
-    showConnect({
-      appDetails: {
-        name: 'StacksDuel',
-        icon: '/favicon.ico',
-      },
-      redirectTo: '/',
-      onFinish: () => {
-        window.location.reload();
-      },
-      userSession,
-    });
+  const authenticate = async () => {
+    try {
+      const response = await connect({
+        forceWalletSelect: true,
+      });
+      
+      if (response && response.addresses) {
+        setConnected(true);
+        const mainnetAddr = response.addresses.find((a: any) => a.network === 'mainnet')?.address || '';
+        const testnetAddr = response.addresses.find((a: any) => a.network === 'testnet')?.address || '';
+        setUserData({
+          profile: {
+            stxAddress: {
+              mainnet: mainnetAddr,
+              testnet: testnetAddr,
+            }
+          }
+        });
+      }
+    } catch (error) {
+      console.error('Wallet connection failed:', error);
+    }
   };
 
-  const logout = () => {
-    userSession.signUserOut();
+  const handleLogout = () => {
+    disconnect();
     setUserData(null);
+    setConnected(false);
   };
 
   return (
-    <StacksContext.Provider value={{ userSession, userData, authenticate, logout, network }}>
+    <StacksContext.Provider value={{ userData, authenticate, logout: handleLogout, connected }}>
       {children}
     </StacksContext.Provider>
   );
