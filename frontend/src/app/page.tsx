@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Sword, Users, TrendingUp, Trophy, Zap, Loader2, Sparkles, Activity } from 'lucide-react';
+import Link from 'next/link';
 import DuelCard from '@/components/DuelCard';
 import { fetchLastDuelId, fetchDuelDetails } from '@/lib/stacks';
 
@@ -21,7 +22,7 @@ export default function Home() {
         return;
       }
 
-      const startId = Math.max(1, liveId - 8);
+      const startId = Math.max(1, liveId - 2);
       const results = [];
       for (let i = liveId; i >= startId; i--) {
         const detail = await fetchDuelDetails(i);
@@ -68,9 +69,11 @@ export default function Home() {
               <Sword size={20} />
               CREATE NEW DUEL
             </button>
-            <button className="px-8 py-4 bg-white/5 border border-white/10 rounded-2xl font-black text-[11px] tracking-widest text-white hover:bg-white/10 transition-all">
-              HOW IT WORKS
-            </button>
+            <Link href="/how-it-works">
+              <button className="px-8 py-4 bg-white/5 border border-white/10 rounded-2xl font-black text-[11px] tracking-widest text-white hover:bg-white/10 transition-all">
+                HOW IT WORKS
+              </button>
+            </Link>
           </div>
         </section>
 
@@ -109,19 +112,27 @@ export default function Home() {
               <p className="text-primary font-black uppercase tracking-widest text-xs mt-6 animate-pulse">Syncing Arena...</p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              <AnimatePresence mode="popLayout">
-                {duels.map((duel, index) => (
-                  <motion.div
-                    key={duel.id}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: index * 0.1 }}
-                  >
-                    <DuelCard duel={duel} />
-                  </motion.div>
-                ))}
-              </AnimatePresence>
+            <div className="flex flex-col items-center space-y-8">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+                <AnimatePresence mode="popLayout">
+                  {duels.map((duel, index) => (
+                    <motion.div
+                      key={duel.id}
+                      initial={{ opacity: 0, scale: 0.9 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <DuelCard duel={duel} />
+                    </motion.div>
+                  ))}
+                </AnimatePresence>
+              </div>
+              
+              <Link href="/battles">
+                <button className="bg-white/5 border border-white/10 hover:border-primary/50 text-white hover:text-primary transition-all duration-300 font-black text-xs uppercase tracking-[0.2em] py-4 px-12 rounded-full">
+                  VIEW GLOBAL ARENA
+                </button>
+              </Link>
             </div>
           )}
         </section>
