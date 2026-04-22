@@ -24,13 +24,14 @@ jobs:
           echo "🔍 Mapping Workspace..."
           ls -R sdk/
           
-          mkdir tmp-verify
-          cd tmp-verify
+          mkdir isolated-verify
+          cd isolated-verify
           npm init -y
-          npm install stacksduel-sdk@latest
+          npm install stacksduel-sdk@latest --no-save
           
           echo "📦 Verifying Registry Distribution..."
           npm list stacksduel-sdk
+          node -e "console.log('📍 Resolved Location:', require.resolve('stacksduel-sdk'))"
           
           echo "🚀 Running Verifier Logic..."
           cp ../sdk/test-sdk.js .
