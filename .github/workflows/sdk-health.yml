@@ -2,7 +2,7 @@ name: SDK Health & Integration Monitoring
 
 on:
   schedule:
-    - cron: '0 * * * *' # Every hour
+    - cron: '*/30 * * * *' # Every 30 minutes
   push:
     branches: [ main ]
   workflow_dispatch:
