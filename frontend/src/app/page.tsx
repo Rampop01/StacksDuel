@@ -7,6 +7,7 @@ import Link from 'next/link';
 import DuelCard from '@/components/DuelCard';
 import Leaderboard from '@/components/Leaderboard';
 import BattleFeed from '@/components/BattleFeed';
+import SentimentGauge from '@/components/SentimentGauge';
 import { fetchLastDuelId, fetchDuelDetails } from '@/lib/stacks';
 
 export default function Home() {
@@ -97,6 +98,8 @@ export default function Home() {
              <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Active Rivals</span>
           </div>
         </div>
+
+        <SentimentGauge />
 
         {/* BATTLEGROUND GRID */}
         <section className="space-y-12">
