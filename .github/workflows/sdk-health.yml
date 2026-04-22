@@ -21,11 +21,18 @@ jobs:
 
       - name: Execute Isolated Verifier
         run: |
+          echo "🔍 Mapping Workspace..."
+          ls -R sdk/
+          
           mkdir tmp-verify
           cd tmp-verify
           npm init -y
           npm install stacksduel-sdk@latest
-          echo "📦 Testing Registry Version of stacksduel-sdk..."
+          
+          echo "📦 Verifying Registry Distribution..."
+          npm list stacksduel-sdk
+          
+          echo "🚀 Running Verifier Logic..."
           node ../sdk/test-sdk.js
         env:
           RPC_URL: "https://api.mainnet.hiro.so"
