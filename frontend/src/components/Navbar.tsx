@@ -2,8 +2,9 @@
 
 import React, { useEffect, useState } from 'react';
 import { useStacks } from './StacksProvider';
-import { Wallet, LogOut, Swords, Activity } from '@/components/Icons';
+import { Wallet, LogOut, Swords, Activity, Zap, Star } from '@/components/Icons';
 import { fetchLastDuelId } from '@/lib/stacks';
+import { motion } from 'framer-motion';
 
 export default function Navbar() {
   const { authenticate, logout, userData } = useStacks();
@@ -50,19 +51,43 @@ export default function Navbar() {
         {/* AUTH ACTIONS */}
         <div className="flex items-center gap-4">
           {userData ? (
-            <div className="flex items-center gap-4 bg-white/5 p-1 rounded-2xl border border-white/5">
-              <span className="pl-3 text-xs font-mono font-bold text-primary">
-                {(() => {
-                  const addr = userData?.profile?.stxAddress?.mainnet || '';
-                  return addr ? `${addr.slice(0,6)}...${addr.slice(-4)}` : 'Connected';
-                })()}
-              </span>
-              <button 
-                onClick={logout} 
-                className="p-3 bg-white/10 hover:bg-red-500/20 rounded-xl transition-all text-white/60 hover:text-red-500"
-              >
-                <LogOut size={18} />
-              </button>
+            <div className="flex items-center gap-6">
+              {/* GAMIFIED PROFILE */}
+              <div className="hidden md:flex flex-col items-end gap-1">
+                <div className="flex items-center gap-2">
+                  <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">Battle Rank</span>
+                  <span className="text-[10px] font-black text-primary bg-primary/10 px-2 py-0.5 rounded border border-primary/20">LVL 04</span>
+                </div>
+                <div className="w-24 h-1 bg-white/5 rounded-full overflow-hidden border border-white/10">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={{ width: '65%' }}
+                    className="h-full bg-gradient-to-r from-primary to-cyan-500"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center gap-3 bg-white/5 p-1.5 rounded-2xl border border-white/5 pr-4">
+                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-purple-500/20 border border-white/10 flex items-center justify-center relative overflow-hidden group">
+                  <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity blur-md" />
+                  <Star size={18} className="text-primary relative z-10" fill="currentColor" />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-[10px] font-black text-white/30 uppercase tracking-widest leading-none mb-1">Commander</span>
+                  <span className="text-xs font-mono font-bold text-white group-hover:text-primary transition-colors">
+                    {(() => {
+                      const addr = userData?.profile?.stxAddress?.mainnet || '';
+                      return addr ? `${addr.slice(0,6)}...${addr.slice(-4)}` : '0x...EY';
+                    })()}
+                  </span>
+                </div>
+                <button 
+                  onClick={logout} 
+                  className="ml-2 p-2.5 bg-white/5 hover:bg-rose-500/20 rounded-xl transition-all text-white/30 hover:text-rose-500 border border-transparent hover:border-rose-500/30"
+                >
+                  <LogOut size={16} />
+                </button>
+              </div>
             </div>
           ) : (
             <button 
