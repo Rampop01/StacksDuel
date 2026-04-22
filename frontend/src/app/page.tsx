@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Sword, Users, TrendingUp, Trophy, Zap, Loader2, Sparkles, Activity } from '@/components/Icons';
 import Link from 'next/link';
 import DuelCard from '@/components/DuelCard';
+import Leaderboard from '@/components/Leaderboard';
 import { fetchLastDuelId, fetchDuelDetails } from '@/lib/stacks';
 
 export default function Home() {
@@ -131,6 +132,19 @@ export default function Home() {
               </Link>
             </div>
           )}
+        </section>
+
+        {/* LEADERBOARD SECTION */}
+        <section className="space-y-12 pb-12">
+          <div className="flex flex-col items-center space-y-4">
+            <div className="flex items-center gap-3">
+               <Trophy className="text-yellow-500 w-6 h-6" />
+               <h2 className="text-4xl font-black tracking-tighter uppercase italic">Hall of Fame</h2>
+            </div>
+            <div className="h-px w-20 bg-yellow-500/20" />
+          </div>
+          
+          <Leaderboard />
         </section>
 
       </div>
