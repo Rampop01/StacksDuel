@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Outfit, JetBrains_Mono } from "next/font/google";
 import { StacksProvider } from "@/components/StacksProvider";
 import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -33,6 +34,7 @@ export default function RootLayout({
         <StacksProvider>
           <Navbar />
           {children}
+          <Footer />
         </StacksProvider>
       </body>
     </html>
