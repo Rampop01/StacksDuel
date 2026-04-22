@@ -33,7 +33,8 @@ jobs:
           npm list stacksduel-sdk
           
           echo "🚀 Running Verifier Logic..."
-          node ../sdk/test-sdk.js
+          cp ../sdk/test-sdk.js .
+          node test-sdk.js
         env:
           RPC_URL: "https://api.mainnet.hiro.so"
 

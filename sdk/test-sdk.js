@@ -6,7 +6,10 @@ async function verifySDK() {
     
     try {
         // Attempt to load from node_modules (the version installed from NPM)
+        console.log(`📦 Resolved Root: ${process.cwd()}`);
         console.log("📦 Loading StacksDuel SDK from registry install...");
+        const modulePath = require.resolve('stacksduel-sdk');
+        console.log(`📦 Resolved SDK Path: ${modulePath}`);
         const sdk = require('stacksduel-sdk');
         
         if (!sdk || !sdk.getLatestDuelId) {
@@ -16,6 +19,10 @@ async function verifySDK() {
         console.log("✅ SDK Module Loaded Successfully.");
         
         const start = Date.now();
+        // Use a more stable RPC if provided
+        const rpc = process.env.RPC_URL || "https://stacks-node-api.mainnet.stacks.co";
+        console.log(`📡 Connecting to: ${rpc}`);
+        
         const lastId = await sdk.getLatestDuelId();
         const duration = Date.now() - start;
 
