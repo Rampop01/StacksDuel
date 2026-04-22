@@ -6,6 +6,7 @@ import { Sword, Users, TrendingUp, Trophy, Zap, Loader2, Sparkles, Activity } fr
 import Link from 'next/link';
 import DuelCard from '@/components/DuelCard';
 import Leaderboard from '@/components/Leaderboard';
+import BattleFeed from '@/components/BattleFeed';
 import { fetchLastDuelId, fetchDuelDetails } from '@/lib/stacks';
 
 export default function Home() {
@@ -75,6 +76,8 @@ export default function Home() {
             </Link>
           </div>
         </section>
+
+        <BattleFeed />
 
         {/* STATS STRIP */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
