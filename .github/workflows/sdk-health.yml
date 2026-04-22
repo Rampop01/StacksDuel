@@ -24,8 +24,14 @@ jobs:
           npm cache clean --force
           npm install stacksduel-sdk@latest
           
+      - name: Verify Package Presence
+        run: ls -R node_modules/stacksduel-sdk || echo "SDK not found in node_modules"
+
       - name: Execute Verifier
-        run: node sdk/test-sdk.js
+        run: |
+          echo "NODE_PATH is $NODE_PATH"
+          export NODE_PATH=$NODE_PATH:$(pwd)/node_modules
+          node sdk/test-sdk.js
         env:
           RPC_URL: "https://api.mainnet.hiro.so"
 
