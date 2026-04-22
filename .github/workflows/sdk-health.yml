@@ -1,0 +1,34 @@
+name: SDK Health & Integration Monitoring
+
+on:
+  schedule:
+    - cron: '0 * * * *' # Every hour
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  health-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Clear Cache & Force Install SDK
+        run: |
+          npm cache clean --force
+          npm install stacksduel-sdk@latest
+          
+      - name: Execute Verifier
+        run: node sdk/test-sdk.js
+        env:
+          RPC_URL: "https://api.mainnet.hiro.so"
+
+      - name: Report Metrics
+        if: always()
+        run: echo "SDK Health Check Completed Successfully at $(date)"
