@@ -1,6 +1,6 @@
 {
   "name": "stacksduel-sdk",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "The official JavaScript SDK for interacting with StacksDuel contracts on the Stacks blockchain.",
   "main": "index.js",
   "scripts": {
