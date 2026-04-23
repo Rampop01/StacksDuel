@@ -23,11 +23,28 @@ async function verifySDK() {
         const rpc = process.env.RPC_URL || "https://stacks-node-api.mainnet.stacks.co";
         console.log(`📡 Connecting to: ${rpc}`);
         
-        const lastId = await sdk.getLatestDuelId();
+        let lastId = 0;
+        let retries = 3;
+        while (retries > 0) {
+            try {
+                lastId = await sdk.getLatestDuelId();
+                if (lastId > 0) break;
+            } catch (e) {
+                console.log(`⚠️ Attempt failed, retries left: ${retries-1}`);
+            }
+            retries--;
+            if (retries > 0) await new Promise(r => setTimeout(r, 3000));
+        }
+
         const duration = Date.now() - start;
 
         console.log(`📡 Network Response: ${lastId} (Latest Duel ID)`);
         console.log(`⏱️ Latency: ${duration}ms`);
+        
+        if (lastId === 0) {
+            throw new Error("Received Duel ID 0 - check if contract state or API is healthy.");
+        }
+
         console.log("🟢 Health Status: OPERATIONAL");
         
         process.exit(0);
