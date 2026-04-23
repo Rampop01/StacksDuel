@@ -35,6 +35,8 @@ jobs:
           
           echo "🚀 Running Verifier Logic..."
           cp ../sdk/test-sdk.js .
+          # Overlay local index.js to test against latest source
+          cp ../sdk/index.js node_modules/stacksduel-sdk/index.js
           node test-sdk.js
         env:
           RPC_URL: "https://api.mainnet.hiro.so"

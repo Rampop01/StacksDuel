@@ -8,7 +8,17 @@ const CONTRACT_NAME = 'duel-engine';
  */
 async function getLatestDuelId() {
     try {
-        const response = await fetch(`${STACKS_API}/data_var/${CONTRACT_ADDRESS}/${CONTRACT_NAME}/last-duel-id?proof=0`);
+        const api = "https://api.mainnet.hiro.so";
+        const url = `${api}/v2/data_var/${CONTRACT_ADDRESS}/${CONTRACT_NAME}/last-duel-id?proof=0`;
+        const response = await fetch(url).catch(e => {
+            console.error("SDK: Network failure on fetch:", e.message);
+            throw e;
+        });
+        
+        if (!response.ok) {
+           throw new Error(`HTTP ${response.status}`);
+        }
+
         const data = await response.json();
         if (data && data.data) {
             const hex = data.data.slice(2);
@@ -16,7 +26,7 @@ async function getLatestDuelId() {
         }
         return 0;
     } catch (error) {
-        console.error("StacksDuel SDK Error fetching live ID:", error);
+        console.error("StacksDuel SDK Error fetching live ID:", error.message);
         return 0;
     }
 }
