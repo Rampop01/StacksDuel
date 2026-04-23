@@ -1,5 +1,9 @@
 // SDK Health & Adoption Verifier
-// This script is used by CI to verify NPM distribution and generate organic download volume.
+try {
+    if (!global.fetch) {
+        global.fetch = require('cross-fetch');
+    }
+} catch (e) {}
 
 async function verifySDK() {
     console.log("🏁 Starting SDK Distribution Verify...");

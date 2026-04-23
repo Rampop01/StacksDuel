@@ -27,11 +27,14 @@ jobs:
           mkdir isolated-verify
           cd isolated-verify
           npm init -y
-          npm install stacksduel-sdk@latest --no-save
+          npm install stacksduel-sdk@latest cross-fetch --no-save
           
           echo "📦 Verifying Registry Distribution..."
           npm list stacksduel-sdk
           node -e "console.log('📍 Resolved Location:', require.resolve('stacksduel-sdk'))"
+          
+          echo "📡 Testing Hiro API Reachability..."
+          curl -I https://api.mainnet.hiro.so/v2/data_var/SP1BTBG1TW13NEV2FQM7HC1BZ9XZV7FZSGPMVV38M/duel-engine/last-duel-id?proof=0
           
           echo "🚀 Running Verifier Logic..."
           cp ../sdk/test-sdk.js .
