@@ -6,7 +6,7 @@ node_modules/
 # Bot Scripts (PRIVATE)
 backend/scripts/
 bot-fleet.json
-.env
+.env*
 
 # Build outputs
 dist/

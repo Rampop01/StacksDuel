@@ -2,6 +2,16 @@
 
 **StacksDuel** is a high-interaction, decentralized battleground built on the Stacks blockchain. It leverages Clarity smart contracts to create a low-friction, high-engagement environment for binary voting and on-chain status rewards.
 
+---
+
+## 🚦 Project Status: **High Activity & Scaling**
+- **Autonomous Fleet**: Active (100 bots maintaining high-velocity interactions)
+- **Duel State**: 270+ Duels confirmed on Stacks Mainnet
+- **Network**: Stacks Mainnet (SP1BTBG... Contract)
+- **Resilience**: Integrated retry mechanisms for Hiro API stability
+
+---
+
 ## Vision
 To create a "reasonable" but addictive social utility on Stacks. Unlike traditional voting platforms, **StacksDuel** integrates a robust NFT reward system:
 - Participant Badges: Earned by every user who votes on a duel.
