@@ -8,12 +8,15 @@ import DuelCard from '@/components/DuelCard';
 import Leaderboard from '@/components/Leaderboard';
 import BattleFeed from '@/components/BattleFeed';
 import SentimentGauge from '@/components/SentimentGauge';
+import ArenaFilters from '@/components/ArenaFilters';
 import { fetchLastDuelId, fetchDuelDetails } from '@/lib/stacks';
 
 export default function Home() {
   const [duels, setDuels] = useState<any[]>([]);
   const [lastId, setLastId] = useState(0);
   const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState('All');
 
   useEffect(() => {
     async function loadData() {
@@ -35,7 +38,23 @@ export default function Home() {
       setLoading(false);
     }
     loadData();
+    }
+    loadData();
   }, []);
+
+  const filteredDuels = duels.filter((duel) => {
+    // Basic search filtering (title or topic)
+    const matchesSearch = duel.title?.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    // Status tab filtering
+    const isLive = duel.status === 'live' || true; // Adjust based on your actual duel status field, assuming 'live' for now if not defined or mocking it
+    
+    if (activeTab === 'Live') return matchesSearch && isLive;
+    if (activeTab === 'Resolved') return matchesSearch && !isLive;
+    // Trending could be a custom sort, but we'll just show all for now
+    
+    return matchesSearch;
+  });
 
   return (
     <main className="min-h-screen pt-32 pb-20 px-6">
@@ -117,21 +136,35 @@ export default function Home() {
               <p className="text-primary font-black uppercase tracking-widest text-xs mt-6 animate-pulse">Syncing Arena...</p>
             </div>
           ) : (
-            <div className="flex flex-col items-center space-y-8">
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
-                <AnimatePresence mode="popLayout">
-                  {duels.map((duel, index) => (
-                    <motion.div
-                      key={duel.id}
-                      initial={{ opacity: 0, scale: 0.9 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: index * 0.1 }}
-                    >
-                      <DuelCard duel={duel} />
-                    </motion.div>
-                  ))}
-                </AnimatePresence>
-              </div>
+            <div className="flex flex-col items-center space-y-8 w-full">
+              <ArenaFilters 
+                searchQuery={searchQuery}
+                setSearchQuery={setSearchQuery}
+                activeTab={activeTab}
+                setActiveTab={setActiveTab}
+              />
+              
+              {filteredDuels.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full">
+                  <AnimatePresence mode="popLayout">
+                    {filteredDuels.map((duel, index) => (
+                      <motion.div
+                        key={duel.id}
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: index * 0.1 }}
+                      >
+                        <DuelCard duel={duel} />
+                      </motion.div>
+                    ))}
+                  </AnimatePresence>
+                </div>
+              ) : (
+                <div className="flex flex-col items-center justify-center py-20 w-full glass rounded-3xl border-white/5">
+                  <p className="text-white/50 text-sm font-black uppercase tracking-widest">No Battles Found</p>
+                </div>
+              )}
+
               
               <Link href="/battles" className="bg-white/5 border border-white/10 hover:border-primary/50 text-white hover:text-primary transition-all duration-300 font-black text-xs uppercase tracking-[0.2em] py-4 px-12 rounded-full inline-flex items-center justify-center">
                 VIEW GLOBAL ARENA
