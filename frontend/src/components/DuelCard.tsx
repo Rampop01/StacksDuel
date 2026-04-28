@@ -5,6 +5,7 @@ import { Users, Shield, Zap, Loader2, Trophy } from '@/components/Icons';
 import { request } from '@stacks/connect';
 import { useStacks } from './StacksProvider';
 import { motion } from 'framer-motion';
+import Link from 'next/link';
 
 interface DuelCardProps {
   duel: {
@@ -150,14 +151,20 @@ export default function DuelCard({ duel }: DuelCardProps) {
           </div>
         </div>
 
-        <div className={`py-3 px-6 rounded-2xl text-[10px] font-black uppercase tracking-widest ${
-          voted 
-            ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' 
-            : duel.active 
-              ? 'bg-primary/20 text-primary border border-primary/30' 
-              : 'bg-white/5 text-white/20 border border-white/5'
-        }`}>
-          {voted ? '✓ VOTED' : duel.active ? 'PICK A SIDE' : 'CLOSED'}
+        <div className="flex items-center gap-3">
+          <div className={`py-3 px-6 rounded-2xl text-[10px] font-black uppercase tracking-widest ${
+            voted 
+              ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' 
+              : duel.active 
+                ? 'bg-primary/20 text-primary border border-primary/30' 
+                : 'bg-white/5 text-white/20 border border-white/5'
+          }`}>
+            {voted ? '✓ VOTED' : duel.active ? 'PICK A SIDE' : 'CLOSED'}
+          </div>
+          
+          <Link href={`/duel/${duel.id}`} className="py-3 px-6 rounded-2xl text-[10px] font-black uppercase tracking-widest bg-white/5 hover:bg-white/10 text-white transition-colors border border-white/10 hover:border-white/20">
+            VIEW DETAILS →
+          </Link>
         </div>
       </div>
     </div>
