@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Wallet, Trophy, Sword, Flame, Loader2 } from '@/components/Icons';
 import CreatorBadge from '@/components/CreatorBadge';
+import ActivityHeatmap from '@/components/ActivityHeatmap';
 import { useStacks } from '@/components/StacksProvider';
 import { fetchLastDuelId, fetchDuelDetails } from '@/lib/stacks';
 import { useUserStats } from '@/hooks/useUserStats';
@@ -114,6 +115,9 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
+
+        {/* CONSISTENCY HEATMAP */}
+        <ActivityHeatmap />
 
         {/* BADGE COLLECTION */}
         <section className="space-y-6">
