@@ -42,19 +42,17 @@ export default function Home() {
     loadData();
   }, []);
 
-  const filteredDuels = duels.filter((duel) => {
-    // Basic search filtering (title or topic)
-    const matchesSearch = duel.title?.toLowerCase().includes(searchQuery.toLowerCase());
-    
-    // Status tab filtering
-    const isLive = duel.status === 'live' || true; // Adjust based on your actual duel status field, assuming 'live' for now if not defined or mocking it
-    
-    if (activeTab === 'Live') return matchesSearch && isLive;
-    if (activeTab === 'Resolved') return matchesSearch && !isLive;
-    // Trending could be a custom sort, but we'll just show all for now
-    
-    return matchesSearch;
-  });
+  const filteredDuels = duels
+    .filter((duel) => {
+      const matchesSearch = duel.title?.toLowerCase().includes(searchQuery.toLowerCase());
+      if (activeTab === 'Live') return matchesSearch && duel.active;
+      if (activeTab === 'Resolved') return matchesSearch && !duel.active;
+      return matchesSearch;
+    })
+    .sort((a, b) => {
+      if (activeTab === 'Trending') return b.totalVotes - a.totalVotes;
+      return 0; // Default order (most recent)
+    });
 
   return (
     <main className="min-h-screen pt-32 pb-20 px-6">
