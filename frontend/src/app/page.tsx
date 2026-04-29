@@ -9,6 +9,8 @@ import Leaderboard from '@/components/Leaderboard';
 import BattleFeed from '@/components/BattleFeed';
 import SentimentGauge from '@/components/SentimentGauge';
 import ArenaFilters from '@/components/ArenaFilters';
+import StatsBar from '@/components/StatsBar';
+import RecentActivity from '@/components/RecentActivity';
 import { fetchLastDuelId, fetchDuelDetails } from '@/lib/stacks';
 
 export default function Home() {
@@ -97,24 +99,8 @@ export default function Home() {
 
         <BattleFeed />
 
-        {/* STATS STRIP */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div className="glass-card flex flex-col items-center text-center space-y-2">
-            <TrendingUp className="text-primary w-8 h-8 mb-2" />
-            <span className="text-4xl font-black tracking-tighter">{lastId}</span>
-            <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Real-Time Battles</span>
-          </div>
-          <div className="glass-card flex flex-col items-center text-center space-y-2">
-             <Zap className="text-purple-500 w-8 h-8 mb-2" />
-             <span className="text-4xl font-black tracking-tighter">{lastId * 10}+</span>
-             <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Verified Entries</span>
-          </div>
-          <div className="glass-card flex flex-col items-center text-center space-y-2">
-             <Trophy className="text-pink-500 w-8 h-8 mb-2" />
-             <span className="text-4xl font-black tracking-tighter">{Math.floor(lastId * 0.8) + 100}</span>
-             <span className="text-[10px] font-black uppercase tracking-widest text-white/40">Active Rivals</span>
-          </div>
-        </div>
+        {/* DYNAMIC STATS STRIP */}
+        <StatsBar />
 
         <SentimentGauge />
 
