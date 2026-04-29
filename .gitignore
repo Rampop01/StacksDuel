@@ -3,9 +3,7 @@ node_modules/
 .pnp
 .pnp.js
 
-# Bot Scripts (PRIVATE)
-backend/scripts/
-bot-fleet.json
+# Local env files
 .env*
 
 # Build outputs
