@@ -4,11 +4,13 @@ import React, { useEffect, useState } from 'react';
 import { useStacks } from './StacksProvider';
 import { Wallet, LogOut, Swords, Activity, Zap, Star } from '@/components/Icons';
 import { fetchLastDuelId } from '@/lib/stacks';
+import { useUserStats } from '@/hooks/useUserStats';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
 export default function Navbar() {
   const { authenticate, logout, userData } = useStacks();
+  const { level, rank, progress, loading: statsLoading } = useUserStats();
   const [lastId, setLastId] = useState(0);
 
   useEffect(() => {
@@ -56,13 +58,15 @@ export default function Navbar() {
               {/* GAMIFIED PROFILE */}
               <div className="hidden md:flex flex-col items-end gap-1">
                 <div className="flex items-center gap-2">
-                  <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">Battle Rank</span>
-                  <span className="text-[10px] font-black text-primary bg-primary/10 px-2 py-0.5 rounded border border-primary/20">LVL 04</span>
+                  <span className="text-[9px] font-black uppercase tracking-[0.2em] text-white/40">{statsLoading ? 'SCANNING...' : rank}</span>
+                  <span className="text-[10px] font-black text-primary bg-primary/10 px-2 py-0.5 rounded border border-primary/20">
+                    LVL {level < 10 ? `0${level}` : level}
+                  </span>
                 </div>
                 <div className="w-24 h-1 bg-white/5 rounded-full overflow-hidden border border-white/10">
                   <motion.div 
                     initial={{ width: 0 }}
-                    animate={{ width: '65%' }}
+                    animate={{ width: `${progress}%` }}
                     className="h-full bg-gradient-to-r from-primary to-cyan-500"
                   />
                 </div>
@@ -75,7 +79,7 @@ export default function Navbar() {
                     <Star size={18} className="text-primary relative z-10" fill="currentColor" />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-[10px] font-black text-white/30 uppercase tracking-widest leading-none mb-1">Commander</span>
+                    <span className="text-[10px] font-black text-white/30 uppercase tracking-widest leading-none mb-1">{statsLoading ? '...' : rank}</span>
                     <span className="text-xs font-mono font-bold text-white group-hover:text-primary transition-colors">
                       {(() => {
                         const addr = userData?.profile?.stxAddress?.mainnet || '';
