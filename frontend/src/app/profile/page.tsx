@@ -6,9 +6,11 @@ import { Wallet, Trophy, Sword, Flame, Loader2 } from '@/components/Icons';
 import CreatorBadge from '@/components/CreatorBadge';
 import { useStacks } from '@/components/StacksProvider';
 import { fetchLastDuelId, fetchDuelDetails } from '@/lib/stacks';
+import { useUserStats } from '@/hooks/useUserStats';
 
 export default function ProfilePage() {
   const { userData, authenticate, connected } = useStacks();
+  const { level, rank, victories, totalBattles, loading: statsLoading } = useUserStats();
   const [userDuels, setUserDuels] = useState<any[]>([]);
   const [loading, setLoading] = useState(false);
 
@@ -83,28 +85,30 @@ export default function ProfilePage() {
               <h1 className="text-3xl md:text-5xl font-black uppercase tracking-tight">{shortAddress}</h1>
               <div className="flex items-center justify-center md:justify-start gap-2 mt-2">
                 <span className="px-3 py-1 bg-white/5 border border-white/10 rounded-full text-[10px] font-black text-white/50 uppercase tracking-widest">
-                  Commander
+                  {statsLoading ? 'SCANNING...' : rank}
                 </span>
                 <span className="px-3 py-1 bg-primary/10 border border-primary/20 rounded-full text-[10px] font-black text-primary uppercase tracking-widest flex items-center gap-1">
-                  <Flame size={12} fill="currentColor" /> LVL 04
+                  <Flame size={12} fill="currentColor" /> LVL {level < 10 ? `0${level}` : level}
                 </span>
               </div>
             </div>
 
-            {/* MOCK OVERALL STATS */}
+            {/* LIVE OVERALL STATS */}
             <div className="md:ml-auto flex items-center gap-6 pt-6 md:pt-0 border-t border-white/10 md:border-t-0 w-full md:w-auto justify-center">
               <div className="flex flex-col items-center">
-                <span className="text-3xl font-black tracking-tighter">42</span>
+                <span className="text-3xl font-black tracking-tighter">{statsLoading ? '—' : totalBattles}</span>
                 <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Total Battles</span>
               </div>
               <div className="w-px h-12 bg-white/10 hidden md:block" />
               <div className="flex flex-col items-center">
-                <span className="text-3xl font-black tracking-tighter text-yellow-500">28</span>
+                <span className="text-3xl font-black tracking-tighter text-yellow-500">{statsLoading ? '—' : victories}</span>
                 <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Victories</span>
               </div>
               <div className="w-px h-12 bg-white/10 hidden md:block" />
               <div className="flex flex-col items-center">
-                <span className="text-3xl font-black tracking-tighter text-primary">66%</span>
+                <span className="text-3xl font-black tracking-tighter text-primary">
+                  {totalBattles > 0 ? Math.floor((victories / totalBattles) * 100) : 0}%
+                </span>
                 <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest">Win Rate</span>
               </div>
             </div>
