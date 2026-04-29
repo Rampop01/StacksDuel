@@ -3,7 +3,7 @@
 import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Wallet, Trophy, Sword, Flame, Loader2 } from '@/components/Icons';
-import DuelCard from '@/components/DuelCard';
+import CreatorBadge from '@/components/CreatorBadge';
 import { useStacks } from '@/components/StacksProvider';
 import { fetchLastDuelId, fetchDuelDetails } from '@/lib/stacks';
 
@@ -110,6 +110,33 @@ export default function ProfilePage() {
             </div>
           </div>
         </div>
+
+        {/* BADGE COLLECTION */}
+        <section className="space-y-6">
+          <div className="flex items-center gap-3 border-b border-white/5 pb-4">
+            <Trophy className="text-yellow-500 w-6 h-6" />
+            <h2 className="text-2xl font-black uppercase tracking-tighter italic">Badge Collection</h2>
+            <span className="ml-auto text-[10px] font-black text-white/20 uppercase tracking-widest">
+              {userDuels.length} Items
+            </span>
+          </div>
+
+          {loading ? (
+             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+               {[1,2,3].map(i => <div key={i} className="aspect-[3/4] bg-white/5 rounded-[32px] animate-pulse" />)}
+             </div>
+          ) : userDuels.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-6">
+              {userDuels.map((duel) => (
+                <CreatorBadge key={duel.id} duel={duel} />
+              ))}
+            </div>
+          ) : (
+            <div className="p-12 text-center glass rounded-[32px] border-white/5">
+              <p className="text-white/30 text-[10px] font-black uppercase tracking-widest">No Creator Badges Earned</p>
+            </div>
+          )}
+        </section>
 
         {/* CREATED DUELS */}
         <section className="space-y-6">
