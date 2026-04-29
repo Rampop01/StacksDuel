@@ -52,9 +52,17 @@ export default function DuelCard({ duel }: DuelCardProps) {
   };
 
   return (
-    <div className="glass-card group flex flex-col h-full min-h-[420px] justify-between relative overflow-hidden">
+    <div className={`glass-card group flex flex-col h-full min-h-[420px] justify-between relative overflow-hidden transition-all duration-500 ${
+      duel.active ? 'hover:shadow-[0_0_40px_rgba(var(--primary-rgb),0.1)]' : ''
+    }`}>
       {/* GLOW DECORATION */}
-      <div className="absolute -top-24 -right-24 w-48 h-48 bg-primary/10 blur-[60px] group-hover:bg-primary/20 transition-all duration-700 pointer-events-none" />
+      <div className={`absolute -top-24 -right-24 w-64 h-64 blur-[80px] transition-all duration-1000 pointer-events-none ${
+        duel.active ? 'bg-primary/10 group-hover:bg-primary/25' : 'bg-white/5'
+      }`} />
+      
+      {duel.active && (
+        <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-primary/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+      )}
       
       <div className="space-y-6 relative z-10">
         <div className="flex justify-between items-start">
