@@ -68,22 +68,23 @@ export default function Navbar() {
                 </div>
               </div>
 
-              <Link href="/profile" className="flex items-center gap-3 bg-white/5 p-1.5 rounded-2xl border border-white/5 pr-4 hover:border-primary/30 transition-colors">
-                <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-purple-500/20 border border-white/10 flex items-center justify-center relative overflow-hidden group">
-                  <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity blur-md" />
-                  <Star size={18} className="text-primary relative z-10" fill="currentColor" />
-                </div>
-                <div className="flex flex-col">
-                  <span className="text-[10px] font-black text-white/30 uppercase tracking-widest leading-none mb-1">Commander</span>
-                  <span className="text-xs font-mono font-bold text-white group-hover:text-primary transition-colors">
-                    {(() => {
-                      const addr = userData?.profile?.stxAddress?.mainnet || '';
-                      return addr ? `${addr.slice(0,6)}...${addr.slice(-4)}` : '0x...EY';
-                    })()}
-                  </span>
-                </div>
-              </Link>
-              <button 
+              <div className="flex items-center gap-3 bg-white/5 p-1.5 rounded-2xl border border-white/5 pr-4">
+                <Link href="/profile" className="flex items-center gap-3 group">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-purple-500/20 border border-white/10 flex items-center justify-center relative overflow-hidden">
+                    <div className="absolute inset-0 bg-primary/20 opacity-0 group-hover:opacity-100 transition-opacity blur-md" />
+                    <Star size={18} className="text-primary relative z-10" fill="currentColor" />
+                  </div>
+                  <div className="flex flex-col">
+                    <span className="text-[10px] font-black text-white/30 uppercase tracking-widest leading-none mb-1">Commander</span>
+                    <span className="text-xs font-mono font-bold text-white group-hover:text-primary transition-colors">
+                      {(() => {
+                        const addr = userData?.profile?.stxAddress?.mainnet || '';
+                        return addr ? `${addr.slice(0,6)}...${addr.slice(-4)}` : '0x...EY';
+                      })()}
+                    </span>
+                  </div>
+                </Link>
+                <button 
                   onClick={logout} 
                   className="ml-2 p-2.5 bg-white/5 hover:bg-rose-500/20 rounded-xl transition-all text-white/30 hover:text-rose-500 border border-transparent hover:border-rose-500/30"
                 >

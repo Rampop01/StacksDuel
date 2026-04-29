@@ -38,8 +38,6 @@ export default function Home() {
       setLoading(false);
     }
     loadData();
-    }
-    loadData();
   }, []);
 
   const filteredDuels = duels.filter((duel) => {
