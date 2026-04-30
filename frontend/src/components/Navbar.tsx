@@ -5,6 +5,7 @@ import { useStacks } from './StacksProvider';
 import { Wallet, LogOut, Swords, Activity, Zap, Star } from '@/components/Icons';
 import { fetchLastDuelId } from '@/lib/stacks';
 import { useUserStats } from '@/hooks/useUserStats';
+import NetworkStatus from '@/components/NetworkStatus';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 
@@ -35,20 +36,9 @@ export default function Navbar() {
           </div>
         </div>
 
-        {/* DETAILS FLEXING */}
-        <div className="hidden lg:flex items-center gap-12">
-          <div className="flex flex-col items-center">
-            <span className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-1">Live Arena Matches</span>
-            <span className="text-sm font-black text-primary flex items-center gap-2">
-              <Activity size={14} className="animate-pulse" />
-              {lastId} CONFIRMED
-            </span>
-          </div>
-          <div className="w-[1px] h-10 bg-white/5" />
-          <div className="flex flex-col items-center">
-            <span className="text-[10px] font-black text-white/40 uppercase tracking-widest mb-1">Network Reliability</span>
-            <span className="text-sm font-black text-emerald-500">100% STEADY</span>
-          </div>
+        {/* LIVE NETWORK STATUS */}
+        <div className="hidden lg:flex items-center">
+          <NetworkStatus />
         </div>
 
         {/* AUTH ACTIONS */}
