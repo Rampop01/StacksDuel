@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Users, Shield, Zap, Loader2, Trophy } from '@/components/Icons';
+import { Users, Shield, Zap, Loader2, Trophy, Copy, Check, Share2, Flame } from '@/components/Icons';
 import { request } from '@stacks/connect';
 import { useStacks } from './StacksProvider';
 import { motion } from 'framer-motion';
@@ -27,6 +27,14 @@ export default function DuelCard({ duel }: DuelCardProps) {
   const { userData, authenticate } = useStacks();
   const [voting, setVoting] = useState(false);
   const [voted, setVoted] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = () => {
+    const url = `${window.location.origin}/duel/${duel.id}`;
+    navigator.clipboard.writeText(url);
+    setCopied(true);
+    setTimeout(() => setCopied(false), 2000);
+  };
 
   const handleVote = async (optionIndex: number) => {
     if (!userData) {
@@ -101,12 +109,24 @@ export default function DuelCard({ duel }: DuelCardProps) {
               #{duel.id}
             </div>
           </div>
-          <div className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${
-            duel.active 
-              ? 'bg-primary/10 border border-primary/20 text-primary' 
-              : 'bg-white/5 border border-white/10 text-white/40'
-          }`}>
-            {duel.active ? '📡 Active' : '🏁 Closed'}
+          
+          <div className="flex items-center gap-2">
+            <button 
+              onClick={(e) => { e.stopPropagation(); handleCopy(); }}
+              className="p-2 bg-white/5 border border-white/10 rounded-lg hover:border-primary/50 text-white/30 hover:text-primary transition-all relative group"
+            >
+              {copied ? <Check size={12} className="text-emerald-500" /> : <Copy size={12} />}
+              <span className="absolute -top-10 left-1/2 -translate-x-1/2 px-2 py-1 bg-black text-[8px] font-black text-white rounded opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-white/10 uppercase tracking-widest">
+                {copied ? 'Copied!' : 'Copy Link'}
+              </span>
+            </button>
+            <div className={`px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-widest ${
+              duel.active 
+                ? 'bg-primary/10 border border-primary/20 text-primary' 
+                : 'bg-white/5 border border-white/10 text-white/40'
+            }`}>
+              {duel.active ? '📡 Active' : '🏁 Closed'}
+            </div>
           </div>
         </div>
 
