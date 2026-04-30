@@ -51,7 +51,16 @@ export default function DuelCard({ duel }: DuelCardProps) {
     setVoting(false);
   };
 
-  return (
+    const getCategory = (title: string) => {
+      const t = title.toLowerCase();
+      if (t.includes('btc') || t.includes('eth') || t.includes('crypto') || t.includes('sol')) return { label: 'Crypto', color: 'text-orange-500 bg-orange-500/10 border-orange-500/20' };
+      if (t.includes('vs') || t.includes('fight') || t.includes('win')) return { label: 'Social', color: 'text-cyan-400 bg-cyan-400/10 border-cyan-400/20' };
+      if (t.includes('market') || t.includes('stock') || t.includes('price')) return { label: 'Finance', color: 'text-emerald-400 bg-emerald-400/10 border-emerald-400/20' };
+      return { label: 'Duel', color: 'text-primary bg-primary/10 border-primary/20' };
+    };
+    const category = getCategory(duel.title);
+
+    return (
     <div className={`glass-card group flex flex-col h-full min-h-[420px] justify-between relative overflow-hidden transition-all duration-500 ${
       duel.active ? 'hover:shadow-[0_0_40px_rgba(var(--primary-rgb),0.1)]' : ''
     }`}>
@@ -67,8 +76,8 @@ export default function DuelCard({ duel }: DuelCardProps) {
       <div className="space-y-6 relative z-10">
         <div className="flex justify-between items-start">
           <div className="flex flex-col">
-            <div className="flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-primary">
-              <Shield size={14} /> DUEL
+            <div className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] px-2 py-0.5 rounded border ${category.color}`}>
+              <Shield size={14} /> {category.label}
             </div>
             <div className="text-[12px] font-bold text-white/30 font-mono mt-1">
               #{duel.id}
