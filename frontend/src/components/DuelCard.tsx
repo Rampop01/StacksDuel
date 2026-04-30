@@ -91,6 +91,11 @@ export default function DuelCard({ duel }: DuelCardProps) {
                 <Flame size={12} fill="currentColor" /> Trending Now
               </div>
             )}
+            {Date.now() / 1000 - duel.createdAt < 1800 && (
+              <div className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-emerald-500 animate-pulse mt-1">
+                <Zap size={12} fill="currentColor" /> NEW ARENA
+              </div>
+            )}
           </div>
             <div className="text-[12px] font-bold text-white/30 font-mono mt-1">
               #{duel.id}
