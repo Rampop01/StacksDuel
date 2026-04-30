@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import { request } from '@stacks/connect';
 import { uintCV, stringAsciiCV, listCV, cvToHex } from '@stacks/transactions';
 import { useStacks } from '@/components/StacksProvider';
+import confetti from 'canvas-confetti';
 
 const CONTRACT_ADDRESS = 'SP1BTBG1TW13NEV2FQM7HC1BZ9XZV7FZSGPMVV38M';
 
@@ -65,10 +66,17 @@ export default function CreateDuelPage() {
         ],
       });
       
+      confetti({
+        particleCount: 200,
+        spread: 100,
+        origin: { y: 0.5 },
+        colors: ['#3b82f6', '#a855f7', '#ec4899']
+      });
+
       // Wait briefly then redirect so user can see it in global arena later
       setTimeout(() => {
         router.push('/battles');
-      }, 1000);
+      }, 3000);
     } catch (err) {
       console.error('Create duel failed:', err);
     }
