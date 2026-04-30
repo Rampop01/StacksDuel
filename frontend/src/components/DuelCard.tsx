@@ -86,6 +86,12 @@ export default function DuelCard({ duel }: DuelCardProps) {
             <div className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] px-2 py-0.5 rounded border ${category.color}`}>
               <Shield size={14} /> {category.label}
             </div>
+            {duel.totalVotes >= 5 && (
+              <div className="flex items-center gap-1 text-[10px] font-black uppercase tracking-widest text-orange-500 animate-pulse mt-2">
+                <Flame size={12} fill="currentColor" /> Trending Now
+              </div>
+            )}
+          </div>
             <div className="text-[12px] font-bold text-white/30 font-mono mt-1">
               #{duel.id}
             </div>
