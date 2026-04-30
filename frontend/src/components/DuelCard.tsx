@@ -6,6 +6,7 @@ import { request } from '@stacks/connect';
 import { useStacks } from './StacksProvider';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import confetti from 'canvas-confetti';
 
 interface DuelCardProps {
   duel: {
@@ -45,6 +46,12 @@ export default function DuelCard({ duel }: DuelCardProps) {
         ],
       });
       setVoted(true);
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#22c55e', '#3b82f6', '#a855f7']
+      });
     } catch (err) {
       console.error('Vote failed:', err);
     }
