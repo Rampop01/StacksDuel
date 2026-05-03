@@ -128,7 +128,6 @@ export default function DuelCard({ duel }: DuelCardProps) {
               {duel.active ? '📡 Active' : '🏁 Closed'}
             </div>
           </div>
-        </div>
 
         <h3 className="text-xl font-black leading-[1.1] hover:text-primary transition-colors cursor-default">
           {duel.title}

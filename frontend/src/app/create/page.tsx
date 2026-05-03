@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowLeft, Loader2, Sword, Plus, X } from '@/components/Icons';
+import { ArrowLeft, Loader2, Sword, Plus, X, Info, Shield, Zap } from '@/components/Icons';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { request } from '@stacks/connect';
@@ -19,6 +19,7 @@ export default function CreateDuelPage() {
   const [options, setOptions] = useState(['', '']);
   const [prediction, setPrediction] = useState(0);
   const [submitting, setSubmitting] = useState(false);
+  const [showRules, setShowRules] = useState(false);
 
   const handleAddOption = () => {
     if (options.length < 4) {
@@ -86,19 +87,28 @@ export default function CreateDuelPage() {
   return (
     <main className="min-h-screen pt-32 pb-20 px-6">
       <div className="max-w-2xl mx-auto space-y-12">
-        <div className="flex flex-col space-y-6">
-          <Link href="/" className="flex items-center gap-2 text-white/50 hover:text-primary transition-colors text-sm font-bold uppercase tracking-widest w-fit">
-            <ArrowLeft size={16} /> Back to Hub
-          </Link>
-          
-          <div className="flex items-center gap-3">
-             <Sword className="text-primary w-8 h-8" />
-             <h1 className="text-5xl font-black tracking-tighter uppercase italic">Forge Duel</h1>
-          </div>
-          <p className="text-white/50 font-medium">
-            Propose a new prediction market on Bitcoin L2. Creating a duel guarantees you a CREATOR NFT.
-          </p>
-        </div>
+         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-8">
+           <div className="flex flex-col space-y-6">
+             <Link href="/" className="flex items-center gap-2 text-white/50 hover:text-primary transition-colors text-sm font-bold uppercase tracking-widest w-fit">
+               <ArrowLeft size={16} /> Back to Hub
+             </Link>
+             
+             <div className="flex items-center gap-3">
+                <Sword className="text-primary w-8 h-8" />
+                <h1 className="text-5xl font-black tracking-tighter uppercase italic">Forge Duel</h1>
+             </div>
+             <p className="text-white/50 font-medium">
+               Propose a new prediction market on Bitcoin L2. Creating a duel guarantees you a CREATOR NFT.
+             </p>
+           </div>
+           
+           <button 
+             onClick={() => setShowRules(true)}
+             className="flex items-center gap-2 px-6 py-3 bg-white/5 border border-white/10 rounded-2xl text-xs font-black uppercase tracking-[0.2em] text-white/40 hover:text-primary hover:border-primary/50 transition-all shadow-xl"
+           >
+             <Info size={16} /> Protocol Rules
+           </button>
+         </div>
 
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
@@ -184,6 +194,76 @@ export default function CreateDuelPage() {
         </motion.div>
 
       </div>
+
+      {/* RULES MODAL */}
+      {showRules && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-6">
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="absolute inset-0 bg-black/90 backdrop-blur-md"
+            onClick={() => setShowRules(false)}
+          />
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            className="relative w-full max-w-xl glass rounded-[40px] border-white/10 p-8 md:p-12 overflow-hidden shadow-2xl"
+          >
+            <div className="absolute top-0 right-0 w-64 h-64 bg-primary/10 blur-[80px] rounded-full -translate-y-1/2 translate-x-1/2" />
+            
+            <div className="relative z-10 space-y-8">
+              <div className="flex justify-between items-start">
+                <div className="space-y-2">
+                  <h2 className="text-3xl font-black uppercase tracking-tighter italic">Battle Rules</h2>
+                  <p className="text-[10px] font-black text-primary uppercase tracking-[0.3em]">Protocol Guidelines</p>
+                </div>
+                <button onClick={() => setShowRules(false)} className="p-3 bg-white/5 border border-white/10 rounded-2xl hover:text-rose-500 transition-colors">
+                  <X size={20} />
+                </button>
+              </div>
+
+              <div className="space-y-6">
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center shrink-0">
+                    <Shield size={18} className="text-primary" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-black uppercase tracking-widest mb-1">Proof of Forgery</h4>
+                    <p className="text-xs text-white/40 leading-relaxed">Every duel you forge is permanent on the Stacks blockchain. You must provide a clear title and two distinct options.</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center shrink-0">
+                    <Zap size={18} className="text-yellow-500" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-black uppercase tracking-widest mb-1">Victory Conditions</h4>
+                    <p className="text-xs text-white/40 leading-relaxed">Duels are resolved based on real-world outcomes. Voting requires a wallet signature and consensus verification.</p>
+                  </div>
+                </div>
+
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/20 flex items-center justify-center shrink-0">
+                    <Loader2 size={18} className="text-cyan-500" />
+                  </div>
+                  <div>
+                    <h4 className="text-sm font-black uppercase tracking-widest mb-1">Integrity First</h4>
+                    <p className="text-xs text-white/40 leading-relaxed">The StacksDuel protocol uses anti-bot heuristics to ensure fair prediction markets for all commanders.</p>
+                  </div>
+                </div>
+              </div>
+
+              <button 
+                onClick={() => setShowRules(false)}
+                className="btn-primary w-full py-4 uppercase tracking-[0.2em] font-black italic"
+              >
+                I Understand the Stakes
+              </button>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </main>
   );
 }

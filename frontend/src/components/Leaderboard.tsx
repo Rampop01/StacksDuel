@@ -5,6 +5,8 @@ import { motion } from 'framer-motion';
 import { Trophy, Medal, Star, Flame, User, Loader2 } from './Icons';
 import { fetchLeaderboardStats } from '@/lib/stacks';
 
+import SelfClawBadge from './SelfClawBadge';
+
 export default function Leaderboard() {
   const [champions, setChampions] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -12,7 +14,9 @@ export default function Leaderboard() {
   useEffect(() => {
     async function loadStats() {
       const stats = await fetchLeaderboardStats();
-      setChampions(stats);
+      // Tag top 2 as verified agents for the demo
+      const taggedStats = stats.map((s, i) => i < 2 ? { ...s, isAgent: true } : s);
+      setChampions(taggedStats);
       setLoading(false);
     }
     loadStats();
@@ -92,7 +96,10 @@ export default function Leaderboard() {
                         )}
                       </div>
                       <div>
-                        <div className="font-bold text-white group-hover:text-primary transition-colors">{champ.name}</div>
+                        <div className="flex items-center gap-2">
+                          <div className="font-bold text-white group-hover:text-primary transition-colors">{champ.name}</div>
+                          {champ.isAgent && <SelfClawBadge size="sm" />}
+                        </div>
                         <div className="text-[10px] text-white/30 font-black uppercase tracking-widest">{champ.volume} STX VOL</div>
                       </div>
                     </div>

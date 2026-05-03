@@ -1,0 +1,28 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  background: rgba(0, 162, 255, 0.1);
+  border: 1px solid rgba(0, 162, 255, 0.3);
+  color: #00a2ff;
+  border-radius: 4px;
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  text-shadow: 0 0 10px rgba(0, 162, 255, 0.5);
+}
+
+.sm {
+  padding: 0.15rem 0.3rem;
+  font-size: 0.5rem;
+}
+
+.md {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.65rem;
+}
+
+.icon {
+  flex-shrink: 0;
+  filter: drop-shadow(0 0 5px rgba(0, 162, 255, 0.8));
+}
