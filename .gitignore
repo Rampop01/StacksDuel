@@ -16,10 +16,5 @@ build/
 .antigravity/
 .DS_Store
 
-# Bots & Secrets
-backend/scripts/bot-fleet.json
-backend/scripts/*.log
-backend/scripts/*.txt
-backend/scripts/commander.js
-backend/scripts/funder.js
-backend/scripts/generator.js
+# Private configurations
+backend/.bot/
