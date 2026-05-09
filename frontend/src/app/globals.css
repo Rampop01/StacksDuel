@@ -71,4 +71,8 @@
   .btn-primary {
     @apply bg-primary text-black font-black py-4 px-8 rounded-2xl uppercase tracking-widest text-[11px] transition-all hover:shadow-[0_0_30px_rgba(34,211,238,0.4)] active:scale-95 text-center;
   }
+
+  .container-responsive {
+    @apply w-full max-w-7xl mx-auto px-4 md:px-8;
+  }
 }
