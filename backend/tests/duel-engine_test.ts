@@ -141,3 +141,44 @@ Clarinet.test({
     successBlock.receipts[0].result.expectOk().expectBool(true);
   },
 });
+
+Clarinet.test({
+  name: 'Ensure that voting is blocked on closed duels',
+  async fn(chain: Chain, accounts: Map<string, Account>) {
+    const wallet_1 = accounts.get('wallet_1')!;
+    const wallet_2 = accounts.get('wallet_2')!;
+
+    // 1. Create and resolve a duel
+    chain.mineBlock([
+      Tx.contractCall(
+        'duel-engine',
+        'create-duel',
+        [
+          types.ascii('Next.js vs Remix?'),
+          types.list([types.ascii('Next.js'), types.ascii('Remix')]),
+          types.uint(0),
+        ],
+        wallet_1.address,
+      ),
+      Tx.contractCall(
+        'duel-engine',
+        'resolve-duel',
+        [types.uint(1), types.uint(0)],
+        wallet_1.address,
+      ),
+    ]);
+
+    // 2. Try to vote on the closed duel
+    let voteBlock = chain.mineBlock([
+      Tx.contractCall(
+        'duel-engine',
+        'vote',
+        [types.uint(1), types.uint(1)],
+        wallet_2.address,
+      ),
+    ]);
+    
+    // ERR-DUEL-CLOSED is u103
+    voteBlock.receipts[0].result.expectErr().expectUint(103);
+  },
+});
