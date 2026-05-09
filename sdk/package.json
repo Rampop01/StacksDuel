@@ -19,5 +19,13 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/Rampop01/StacksDuel.git"
+  },
+  "devDependencies": {
+    "@types/node": "^25.6.2",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@stacks/network": "^7.3.1",
+    "@stacks/transactions": "^7.4.0"
   }
 }
