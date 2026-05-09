@@ -16,6 +16,19 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
+## Development
+
+This project uses **Prettier** for code formatting and **Husky** for git hooks.
+
+### Scripts
+
+- `npm run dev`: Starts the development server.
+- `npm run build`: Builds the production application.
+- `npm run lint`: Runs ESLint to check for code issues.
+- `npm run format`: Runs Prettier to format all files in the project.
+
+Pre-commit hooks are configured to run both `format` and `lint` automatically before each commit.
+
 You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
