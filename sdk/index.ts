@@ -73,3 +73,16 @@ export const buildCreateDuelTx = (title: string, options: string[], prediction: 
     network: CONFIG.NETWORK,
   };
 };
+
+export const buildVoteTx = (duelId: number, optionIndex: number) => {
+  return {
+    contractAddress: CONFIG.CONTRACT_ADDRESS,
+    contractName: CONFIG.CONTRACT_NAME,
+    functionName: 'vote',
+    functionArgs: [
+      duelId,
+      optionIndex
+    ],
+    network: CONFIG.NETWORK,
+  };
+};
