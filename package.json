@@ -1,0 +1,16 @@
+{
+  "name": "stacksduel-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "frontend",
+    "backend",
+    "sdk"
+  ],
+  "scripts": {
+    "dev": "npm run dev --workspace=frontend",
+    "build": "npm run build --workspace=frontend",
+    "lint": "npm run lint --workspaces",
+    "format": "npm run format --workspaces"
+  }
+}
