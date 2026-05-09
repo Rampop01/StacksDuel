@@ -8,6 +8,18 @@
   --color-secondary: #c026d3;
   --color-accent: #f472b6;
   --color-background: #05010d;
+  
+  /* Semantic Colors */
+  --color-success: #10b981;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
 }
 
 @theme {
@@ -17,6 +29,15 @@
   --color-secondary: var(--color-secondary);
   --color-accent: var(--color-accent);
   --color-background: var(--color-background);
+  --color-success: var(--color-success);
+  --color-warning: var(--color-warning);
+  --color-error: var(--color-error);
+  
+  --spacing-xs: var(--spacing-xs);
+  --spacing-sm: var(--spacing-sm);
+  --spacing-md: var(--spacing-md);
+  --spacing-lg: var(--spacing-lg);
+  --spacing-xl: var(--spacing-xl);
 }
 
 @layer base {
