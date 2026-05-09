@@ -94,3 +94,50 @@ Clarinet.test({
     doubleVoteBlock.receipts[0].result.expectErr().expectUint(102);
   },
 });
+
+Clarinet.test({
+  name: 'Ensure that only the creator can resolve a duel',
+  async fn(chain: Chain, accounts: Map<string, Account>) {
+    const wallet_1 = accounts.get('wallet_1')!;
+    const wallet_2 = accounts.get('wallet_2')!;
+
+    // 1. Create a duel from wallet_1
+    chain.mineBlock([
+      Tx.contractCall(
+        'duel-engine',
+        'create-duel',
+        [
+          types.ascii('BTC hits 200k this year?'),
+          types.list([types.ascii('YES'), types.ascii('NO')]),
+          types.uint(0),
+        ],
+        wallet_1.address,
+      ),
+    ]);
+
+    // 2. Try to resolve from wallet_2 (unauthorized)
+    let failBlock = chain.mineBlock([
+      Tx.contractCall(
+        'duel-engine',
+        'resolve-duel',
+        [types.uint(1), types.uint(0)],
+        wallet_2.address,
+      ),
+    ]);
+    
+    // ERR-NOT-AUTHORIZED is u104
+    failBlock.receipts[0].result.expectErr().expectUint(104);
+
+    // 3. Resolve from wallet_1 (success)
+    let successBlock = chain.mineBlock([
+      Tx.contractCall(
+        'duel-engine',
+        'resolve-duel',
+        [types.uint(1), types.uint(0)],
+        wallet_1.address,
+      ),
+    ]);
+    
+    successBlock.receipts[0].result.expectOk().expectBool(true);
+  },
+});
