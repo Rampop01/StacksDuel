@@ -58,3 +58,18 @@ export const calculateOdds = (poolA: number, poolB: number): { oddsA: number; od
     oddsB: total / (poolB || 1),
   };
 };
+
+export const buildCreateDuelTx = (title: string, options: string[], prediction: number) => {
+  return {
+    contractAddress: CONFIG.CONTRACT_ADDRESS,
+    contractName: CONFIG.CONTRACT_NAME,
+    functionName: 'create-duel',
+    functionArgs: [
+      // CV types would go here in a production SDK
+      title,
+      options,
+      prediction
+    ],
+    network: CONFIG.NETWORK,
+  };
+};
