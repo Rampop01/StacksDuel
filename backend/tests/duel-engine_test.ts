@@ -46,3 +46,51 @@ Clarinet.test({
     assertEquals(duel['active'], types.bool(true));
   },
 });
+
+Clarinet.test({
+  name: 'Ensure that a user can vote on an active duel',
+  async fn(chain: Chain, accounts: Map<string, Account>) {
+    const wallet_1 = accounts.get('wallet_1')!;
+    const wallet_2 = accounts.get('wallet_2')!;
+
+    // 1. Create a duel
+    let block = chain.mineBlock([
+      Tx.contractCall(
+        'duel-engine',
+        'create-duel',
+        [
+          types.ascii('iOS vs Android: Superior mobile OS?'),
+          types.list([types.ascii('iOS'), types.ascii('Android')]),
+          types.uint(0),
+        ],
+        wallet_1.address,
+      ),
+    ]);
+
+    // 2. Vote from another wallet
+    let voteBlock = chain.mineBlock([
+      Tx.contractCall(
+        'duel-engine',
+        'vote',
+        [types.uint(1), types.uint(1)], // Vote for Android (index 1)
+        wallet_2.address,
+      ),
+    ]);
+
+    // Check success
+    voteBlock.receipts[0].result.expectOk().expectBool(true);
+    
+    // Verify already voted error
+    let doubleVoteBlock = chain.mineBlock([
+      Tx.contractCall(
+        'duel-engine',
+        'vote',
+        [types.uint(1), types.uint(1)],
+        wallet_2.address,
+      ),
+    ]);
+    
+    // ERR-ALREADY-VOTED is u102
+    doubleVoteBlock.receipts[0].result.expectErr().expectUint(102);
+  },
+});
