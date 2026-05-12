@@ -6,8 +6,9 @@ import { Wallet, Trophy, Sword, Flame, Loader2 } from '@/components/Icons';
 import CreatorBadge from '@/components/CreatorBadge';
 import ActivityHeatmap from '@/components/ActivityHeatmap';
 import { useStacks } from '@/components/StacksProvider';
-import { fetchLastDuelId, fetchDuelDetails } from '@/lib/stacks';
+import { fetchUserDuels } from '@/lib/stacks';
 import { useUserStats } from '@/hooks/useUserStats';
+import DuelCard from '@/components/DuelCard';
 
 export default function ProfilePage() {
   const { userData, authenticate, connected } = useStacks();
@@ -27,16 +28,7 @@ export default function ProfilePage() {
       }
 
       try {
-        const liveId = await fetchLastDuelId();
-        const startId = Math.max(1, liveId - 20); // Search last 20 duels for this user to keep it fast
-        
-        const results = [];
-        for (let i = liveId; i >= startId; i--) {
-          const detail = await fetchDuelDetails(i);
-          if (detail && detail.creator === userAddress) {
-            results.push(detail);
-          }
-        }
+        const results = await fetchUserDuels(userAddress);
         setUserDuels(results);
       } catch (err) {
         console.error('Failed to load user duels:', err);
