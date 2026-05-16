@@ -6,6 +6,7 @@ export * from './types';
 export * from './utils/format';
 export * from './utils/math';
 export * from './utils/duel';
+export * from './utils/validation';
 
 export async function getDuelDetails(duelId: number): Promise<DuelDetails | null> {
   try {
