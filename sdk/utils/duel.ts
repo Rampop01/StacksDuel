@@ -10,3 +10,7 @@ export const canVoteOnDuel = (duel: DuelDetails): boolean => {
   const isCorrectStatus = [DuelStatus.Open, DuelStatus.Active].includes(duel.status);
   return isCorrectStatus && !isDuelExpired(duel);
 };
+
+export const getDuelStatusLabel = (status: DuelStatus): string => {
+  return DuelStatus[status] || 'Unknown';
+};
