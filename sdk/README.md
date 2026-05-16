@@ -72,5 +72,18 @@ console.log(`Option A Odds: ${oddsA}x`); // "4x"
 console.log(`Option B Odds: ${oddsB}x`); // "1.33x"
 ```
 
+### Type Safety
+Use the built-in `DuelStatus` enum to safely check the state of any duel:
+
+```javascript
+import { DuelStatus } from 'stacksduel-sdk';
+
+if (duel.status === DuelStatus.Active) {
+  console.log("This duel is currently accepting votes!");
+} else if (duel.status === DuelStatus.Completed) {
+  console.log("This duel has finished.");
+}
+```
+
 ## Hackathon Impact
 Built as advanced tooling infrastructure for the **Talent Protocol Stacks Builder Rewards** initiative.
