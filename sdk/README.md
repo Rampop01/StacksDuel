@@ -42,5 +42,20 @@ const payload = buildVotePayload(15, 0);
 await request('stx_callContract', payload);
 ```
 
+## Utilities
+
+### Currency Formatting
+The SDK provides helpers to switch between STX and microSTX (1 STX = 1,000,000 microSTX):
+
+```javascript
+import { formatSTX, toMicroSTX } from 'stacksduel-sdk';
+
+// Convert microSTX to a human-readable string (e.g., "5.50")
+const displayAmount = formatSTX(5500000); 
+
+// Convert human STX back to microSTX for transactions (e.g., 10000000)
+const blockchainAmount = toMicroSTX(10); 
+```
+
 ## Hackathon Impact
 Built as advanced tooling infrastructure for the **Talent Protocol Stacks Builder Rewards** initiative.
