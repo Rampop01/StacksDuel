@@ -2,6 +2,12 @@
 
 The official zero-dependency JavaScript SDK for reading from and interacting with **StacksDuel** on the Stacks blockchain.
 
+## Key Features
+- 🚀 **Zero-Dependency Reads**: Fetch on-chain duel data via public API endpoints without requiring a heavy blockchain node.
+- 🛡️ **Type-Safe Payloads**: Pre-formatted transaction builders for `@stacks/connect`.
+- 📊 **Pool Analytics**: Built-in utilities for calculating odds and pool distributions.
+- 🏗️ **Mainnet Ready**: Configured for the Stacks Mainnet out of the box.
+
 ## Installation
 
 ```bash
