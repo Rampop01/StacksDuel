@@ -57,5 +57,20 @@ const displayAmount = formatSTX(5500000);
 const blockchainAmount = toMicroSTX(10); 
 ```
 
+### Pool Analysis
+Calculate live odds based on the current distribution of STX in each pool:
+
+```javascript
+import { calculateOdds } from 'stacksduel-sdk';
+
+const poolA = 1500; // microSTX in option A
+const poolB = 4500; // microSTX in option B
+
+const { oddsA, oddsB } = calculateOdds(poolA, poolB);
+
+console.log(`Option A Odds: ${oddsA}x`); // "4x"
+console.log(`Option B Odds: ${oddsB}x`); // "1.33x"
+```
+
 ## Hackathon Impact
 Built as advanced tooling infrastructure for the **Talent Protocol Stacks Builder Rewards** initiative.
