@@ -14,3 +14,7 @@ export const canVoteOnDuel = (duel: DuelDetails): boolean => {
 export const getDuelStatusLabel = (status: DuelStatus): string => {
   return DuelStatus[status] || 'Unknown';
 };
+
+export const isDuelWinner = (duel: DuelDetails, optionIndex: number): boolean => {
+  return duel.winner !== null && duel.winner === optionIndex;
+};
