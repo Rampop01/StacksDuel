@@ -85,5 +85,15 @@ if (duel.status === DuelStatus.Active) {
 }
 ```
 
+```
+
+## Troubleshooting
+
+### API Rate Limiting
+If you experience `429 Too Many Requests` when fetching duel data, consider using a custom Hiro API key or implementing a small retry delay.
+
+### Pending Transactions
+Stacks transactions can take several minutes to confirm. Use the `stacksduel-sdk` in combination with a block explorer link to monitor transaction status for your users.
+
 ## Hackathon Impact
 Built as advanced tooling infrastructure for the **Talent Protocol Stacks Builder Rewards** initiative.
