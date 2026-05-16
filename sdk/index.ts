@@ -1,37 +1,12 @@
-import { STACKS_MAINNET } from '@stacks/network';
+import { SDK_CONFIG } from './config';
+import { DuelStatus, DuelDetails } from './types';
 
-export const CONFIG = {
-  NETWORK: STACKS_MAINNET,
-  CONTRACT_ADDRESS: 'SP1BTBG1TW13NEV2FQM7HC1BZ9XZV7FZSGPMVV38M',
-  CONTRACT_NAME: 'duel-engine',
-  API_URL: 'https://api.mainnet.hiro.so',
-};
-
-export enum DuelStatus {
-  Open = 0,
-  Active = 1,
-  Completed = 2,
-  Disputed = 3,
-  Cancelled = 4,
-}
-
-export interface DuelDetails {
-  id: number;
-  creator: string;
-  title: string;
-  options: string[];
-  prediction: number;
-  status: DuelStatus;
-  winner: number | null;
-  totalVotes: number;
-  poolA: number;
-  poolB: number;
-  createdAt: number;
-}
+export * from './config';
+export * from './types';
 
 export async function getDuelDetails(duelId: number): Promise<DuelDetails | null> {
   try {
-    const url = `${CONFIG.API_URL}/v2/map_entry/${CONFIG.CONTRACT_ADDRESS}/${CONFIG.CONTRACT_NAME}/duels`;
+    const url = `${SDK_CONFIG.API_URL}/v2/map_entry/${SDK_CONFIG.CONTRACT_ADDRESS}/${SDK_CONFIG.CONTRACT_NAME}/duels`;
     const response = await fetch(url, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -73,8 +48,8 @@ export const calculateOdds = (poolA: number, poolB: number): { oddsA: number; od
 
 export const buildCreateDuelTx = (title: string, options: string[], prediction: number) => {
   return {
-    contractAddress: CONFIG.CONTRACT_ADDRESS,
-    contractName: CONFIG.CONTRACT_NAME,
+    contractAddress: SDK_CONFIG.CONTRACT_ADDRESS,
+    contractName: SDK_CONFIG.CONTRACT_NAME,
     functionName: 'create-duel',
     functionArgs: [
       // CV types would go here in a production SDK
@@ -82,19 +57,19 @@ export const buildCreateDuelTx = (title: string, options: string[], prediction: 
       options,
       prediction
     ],
-    network: CONFIG.NETWORK,
+    network: SDK_CONFIG.NETWORK,
   };
 };
 
 export const buildVoteTx = (duelId: number, optionIndex: number) => {
   return {
-    contractAddress: CONFIG.CONTRACT_ADDRESS,
-    contractName: CONFIG.CONTRACT_NAME,
+    contractAddress: SDK_CONFIG.CONTRACT_ADDRESS,
+    contractName: SDK_CONFIG.CONTRACT_NAME,
     functionName: 'vote',
     functionArgs: [
       duelId,
       optionIndex
     ],
-    network: CONFIG.NETWORK,
+    network: SDK_CONFIG.NETWORK,
   };
 };
