@@ -11,3 +11,7 @@ export const calculateOdds = (poolA: number, poolB: number): { oddsA: number; od
 export const getDuelPoolTotal = (poolA: number, poolB: number): number => {
   return poolA + poolB;
 };
+
+export const calculateROI = (odds: number): number => {
+  return (odds - 1) * 100;
+};
