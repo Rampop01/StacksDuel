@@ -1,7 +1,7 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  transpilePackages: ['@stacks/connect', '@stacks/network', '@stacks/transactions'],
+  transpilePackages: ['@stacks/connect', '@stacks/network', '@stacks/transactions', 'stacksduel-sdk'],
   serverExternalPackages: ['pino', 'pino-pretty'],
   eslint: {
     ignoreDuringBuilds: true,
