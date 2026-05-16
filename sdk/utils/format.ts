@@ -8,3 +8,7 @@ export const formatSTX = (microstx: number | string): string => {
 export const toMicroSTX = (stx: number | string): number => {
   return Math.floor(Number(stx) * 1000000);
 };
+
+export const formatPercentage = (value: number, decimals: number = 2): string => {
+  return `${value.toFixed(decimals)}%`;
+};
