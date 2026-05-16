@@ -15,3 +15,7 @@ export const getDuelPoolTotal = (poolA: number, poolB: number): number => {
 export const calculateROI = (odds: number): number => {
   return (odds - 1) * 100;
 };
+
+export const calculateWinningShare = (betAmount: number, odds: number): number => {
+  return Math.floor(betAmount * odds);
+};
