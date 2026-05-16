@@ -7,3 +7,7 @@ export const calculateOdds = (poolA: number, poolB: number): { oddsA: number; od
     oddsB: total / (poolB || 1),
   };
 };
+
+export const getDuelPoolTotal = (poolA: number, poolB: number): number => {
+  return poolA + poolB;
+};
