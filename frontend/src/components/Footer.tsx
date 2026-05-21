@@ -50,9 +50,9 @@ export default function Footer() {
             <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-white/30">Ecosystem</h4>
             <div className="flex flex-col space-y-3">
               <Link href="https://stacks.co" className="text-sm text-white/60 hover:text-primary transition-colors font-bold">Stacks Network</Link>
-              <Link href="https://hiro.so" className="text-sm text-white/60 hover:text-primary transition-colors font-bold">Hiro Developer Tools</Link>
-              <Link href="/docs" className="text-sm text-white/60 hover:text-primary transition-colors font-bold">Clarity Docs</Link>
-              <Link href="/audits" className="text-sm text-white/60 hover:text-primary transition-colors font-bold">Security Audits</Link>
+              <Link href="/faq" className="text-sm text-white/60 hover:text-primary transition-colors font-bold">FAQ</Link>
+              <Link href="/terms" className="text-sm text-white/60 hover:text-primary transition-colors font-bold">Terms of Service</Link>
+              <Link href="/privacy" className="text-sm text-white/60 hover:text-primary transition-colors font-bold">Privacy Policy</Link>
             </div>
           </div>
 
