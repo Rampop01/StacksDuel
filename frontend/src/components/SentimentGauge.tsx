@@ -12,30 +12,30 @@ export default function SentimentGauge() {
       {/* BACKGROUND DECOR */}
       <div className="absolute top-0 center-0 w-full h-full bg-[radial-gradient(circle_at_50%_-20%,rgba(var(--primary-rgb),0.1),transparent)] pointer-events-none" />
       
-      <div className="flex flex-col md:flex-row items-center justify-between gap-12 relative z-10">
-        <div className="flex flex-col space-y-4 max-w-xs text-center md:text-left">
-          <div className="flex items-center justify-center md:justify-start gap-2 text-primary font-black uppercase tracking-[0.3em] text-[10px]">
+      <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-8 relative z-10 w-full">
+        <div className="flex flex-col space-y-4 w-full lg:w-1/3 text-center lg:text-left">
+          <div className="flex items-center justify-center lg:justify-start gap-2 text-primary font-black uppercase tracking-[0.3em] text-[10px]">
             <Activity size={16} className="animate-pulse" />
             Arena Sentiment
           </div>
           <h2 className="text-3xl font-black italic tracking-tighter uppercase leading-none">
             THE BULLS ARE <span className="text-primary italic">DOMINATING</span>
           </h2>
-          <p className="text-xs text-white/40 font-medium leading-relaxed">
+          <p className="text-xs text-white/40 font-medium leading-relaxed max-w-sm mx-auto lg:mx-0">
             Overall sentiment across all active duels is heavily leaning towards positive outcomes. 
             Join the fray to shift the momentum.
           </p>
         </div>
 
         {/* GAUGE VISUAL */}
-        <div className="relative w-64 h-32 flex items-end justify-center perspective-1000">
+        <div className="relative w-64 h-32 flex items-end justify-center perspective-1000 shrink-0 lg:w-1/3">
           {/* SEMI CIRCLE TRACK */}
-          <div className="absolute inset-x-0 bottom-0 h-32 rounded-t-full border-t-8 border-x-8 border-white/5 overflow-hidden">
+          <div className="absolute inset-x-0 bottom-0 h-32 rounded-t-full border-t-8 border-x-8 border-white/5 overflow-hidden w-64 mx-auto">
             <div className="absolute inset-0 bg-gradient-to-r from-rose-500/20 via-white/5 to-emerald-500/20" />
           </div>
           
           {/* PROGRESS FILL */}
-          <svg className="absolute inset-x-0 bottom-0 w-64 h-32 overflow-visible">
+          <svg className="absolute bottom-0 w-64 h-32 overflow-visible left-1/2 -translate-x-1/2">
             <motion.path
               d="M 8 128 A 120 120 0 0 1 248 128"
               fill="none"
@@ -60,18 +60,18 @@ export default function SentimentGauge() {
             initial={{ rotate: -90 }}
             animate={{ rotate: (bullishPercent / 100) * 180 - 90 }}
             transition={{ duration: 2.5, type: 'spring', bounce: 0.4 }}
-            className="absolute bottom-0 w-1 h-32 origin-bottom bg-white z-20 shadow-[0_0_15px_white]"
+            className="absolute bottom-0 w-1 h-32 origin-bottom bg-white z-20 shadow-[0_0_15px_white] left-1/2 -translate-x-1/2"
           >
             <div className="absolute top-0 left-1/2 -ml-1.5 w-3 h-3 bg-white rounded-full" />
           </motion.div>
 
           {/* CENTER HUB */}
-          <div className="absolute bottom-0 w-12 h-6 bg-[#0a0a0a] rounded-t-full border-t-2 border-x-2 border-white/20 z-30 flex items-center justify-center">
+          <div className="absolute bottom-0 w-12 h-6 bg-[#0a0a0a] rounded-t-full border-t-2 border-x-2 border-white/20 z-30 flex items-center justify-center left-1/2 -translate-x-1/2">
              <span className="text-[10px] font-black pt-1">{bullishPercent}%</span>
           </div>
         </div>
 
-        <div className="grid grid-cols-2 gap-8 text-center">
+        <div className="flex items-center justify-center lg:justify-end gap-12 w-full lg:w-1/3">
             <div className="flex flex-col items-center">
                 <div className="p-3 bg-rose-500/10 rounded-2xl border border-rose-500/20 mb-2">
                     <TrendingDown className="text-rose-500" />
