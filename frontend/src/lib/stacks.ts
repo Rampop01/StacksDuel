@@ -6,8 +6,30 @@ import { getLatestDuelId } from 'stacksduel-sdk';
 const CONTRACT_ADDRESS = 'SP1BTBG1TW13NEV2FQM7HC1BZ9XZV7FZSGPMVV38M';
 const CONTRACT_NAME = 'duel-engine';
 
+let lastDuelIdCache: { id: number, time: number } | null = null;
+let lastDuelIdPromise: Promise<number> | null = null;
+
 export async function fetchLastDuelId(): Promise<number> {
-  return await getLatestDuelId();
+  const now = Date.now();
+  if (lastDuelIdCache && now - lastDuelIdCache.time < 15000) {
+    return lastDuelIdCache.id;
+  }
+  if (lastDuelIdPromise) {
+    return lastDuelIdPromise;
+  }
+  
+  lastDuelIdPromise = getLatestDuelId().then(id => {
+    if (id > 0) {
+      lastDuelIdCache = { id, time: Date.now() };
+    }
+    lastDuelIdPromise = null;
+    return id;
+  }).catch(err => {
+    lastDuelIdPromise = null;
+    return 0;
+  });
+  
+  return lastDuelIdPromise;
 }
 
 export async function fetchDuelDetails(id: number): Promise<any | null> {
