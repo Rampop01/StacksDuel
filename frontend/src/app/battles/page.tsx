@@ -20,20 +20,30 @@ export default function BattlesArchivePage() {
         return;
       }
 
-      const scanLimit = Math.min(latestId, 40);
+      const scanLimit = Math.min(latestId, 20);
       const startId = Math.max(1, latestId - scanLimit + 1);
-      const fetchPromises = [];
+      const loaded: any[] = [];
 
-      for (let i = latestId; i >= startId; i--) {
-        fetchPromises.push(fetchDuelDetails(i));
+      for (let i = latestId; i >= startId; i -= 5) {
+        const batch = [];
+        for (let j = 0; j < 5 && (i - j) >= startId; j++) {
+          batch.push(fetchDuelDetails(i - j));
+        }
+        const responses = await Promise.all(batch);
+        const valid = responses.filter(d => d !== null);
+        loaded.push(...valid);
+        setDuels([...loaded]);
+        
+        if (i - 5 >= startId) {
+          await new Promise(r => setTimeout(r, 600));
+        }
       }
 
-      const responses = await Promise.all(fetchPromises);
-      setDuels(responses.filter(d => d !== null));
       setLoading(false);
     }
     loadArchive();
   }, []);
+
 
   const filtered = duels.filter(d => 
     d.title.toLowerCase().includes(search.toLowerCase())
@@ -95,7 +105,9 @@ export default function BattlesArchivePage() {
           </div>
         ) : (
           <div className="py-40 text-center glass rounded-[48px] border-white/5">
-            <p className="text-white/30 text-[10px] font-black uppercase tracking-widest">No Battles Found Matching Search</p>
+            <p className="text-white/30 text-[10px] font-black uppercase tracking-widest">
+              {search.trim() ? "No Battles Found Matching Search" : "No battles found yet"}
+            </p>
           </div>
         )}
 
