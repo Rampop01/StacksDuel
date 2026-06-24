@@ -26,7 +26,7 @@ export default function Navbar() {
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-2xl border-b border-white/5 h-24">
       <div className="max-w-7xl mx-auto px-6 h-full flex items-center justify-between">
         {/* LOGO */}
-        <div className="flex items-center gap-4">
+        <Link href="/" className="flex items-center gap-4 cursor-pointer hover:opacity-80 transition-opacity">
           <div className="p-3 bg-primary/10 rounded-2xl border border-primary/20">
             <Swords className="text-primary w-7 h-7" />
           </div>
@@ -34,7 +34,7 @@ export default function Navbar() {
             <span className="text-2xl font-black tracking-tighter italic">STACKS<span className="text-primary">DUEL</span></span>
             <span className="text-[10px] font-bold text-white/40 uppercase tracking-widest leading-none">Global Arena</span>
           </div>
-        </div>
+        </Link>
 
         {/* LIVE NETWORK STATUS */}
         <div className="hidden lg:flex items-center">
